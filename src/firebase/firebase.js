@@ -3,12 +3,12 @@ const firebaseInstance = require('firebase');
 // Initialize Firebase
 // TODO: Replace with your project's config
 const config = {
-  apiKey: '<key>',
-  authDomain: '<projectId>.firebaseapp.com',
-  databaseURL: 'https://<projectId>.firebaseio.com',
-  projectId: '<projectId>',
-  storageBucket: '<projectId>.appspot.com',
-  messagingSenderId: '52666332181',
+  apiKey: 'AIzaSyDkqTcCHDJgh-3m7pfH_wUNurKQXkkpEj8',
+  authDomain: 'jonasstasseyns-eindopdracht.firebaseapp.com',
+  databaseURL: 'https://jonasstasseyns-eindopdracht.firebaseio.com/',
+  projectId: 'jonasstasseyns-eindopdracht',
+  storageBucket: 'jonasstasseyns-eindopdracht.appspot.com',
+  messagingSenderId: '977534476748',
 };
 
 let instance = null;

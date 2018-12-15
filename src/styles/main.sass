@@ -1,27 +1,26 @@
 @import "../../node_modules/mapbox-gl/dist/mapbox-gl.css"
 // Generic styling
 body
-    font-size: 12px
+  font-size: 12px
+  font-family: sans-serif
+  margin: 0 auto
+  background: #fefefe
+  height: 100vh
+  #app
+    height: 100%
+    position: relative
+  #map
+    top: 0
+    bottom: 0
+    width: 500px
+    height: 200px
+    text-align: initial
     margin: 0 auto
-    background: #fefefe
-    height: 100vh
-    #app
-        height: 100%
-        position: relative
-    #map
-        top: 0
-        bottom: 0
-        width: 500px
-        height: 200px
-        text-align: initial
-        margin: 0 auto
+    height: 2px
 
+@import 'variables.sass'
 
-// general
-@import "./colors"
-@import "./page"
-@import "./header"
-@import "./footer"
-
-// pages
-@import "./about"
+form
+  border-color: $variable-test
+h1
+  color: red
