@@ -1,12 +1,16 @@
-<h1>Test</h1>
 {{> form }}
 
-<h1>Add Kot</h1>
-<form class="add-kot">
-    <label>Title</label>
+<form class="form add-kot">
+    <h1>Add kot</h1>
+    <label>Kot title</label>
     <input type="text" class="add-kot-title" placeholder="titel van kot">
     <label>Beschrijving</label>
     <textarea class="add-kot-description" placeholder="kot beschrijving"></textarea>
+    <label>Kotadres</label>
     <input type="text" class="add-kot-address" placeholder="kotadres">
     <button class="add-kot-submit">Toevoegen</button>
 </form>
+<div class="kotlist"></div>
+{{>footer}}
+
+<input type="file" name="image" class="image">

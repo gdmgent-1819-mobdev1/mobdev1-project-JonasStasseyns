@@ -1,8 +1,9 @@
 @import "../../node_modules/mapbox-gl/dist/mapbox-gl.css"
+@import url('https://fonts.googleapis.com/css?family=Roboto')
 // Generic styling
 body
   font-size: 12px
-  font-family: sans-serif
+  font-family: 'Roboto', sans-serif
   margin: 0 auto
   background: #fefefe
   height: 100vh
@@ -20,7 +21,85 @@ body
 
 @import 'variables.sass'
 
-form
-  border-color: $variable-test
 h1
-  color: red
+  color: $blackish
+
+.form-signin, .form-signup
+  //display: none
+
+.form
+  width: 80vw
+  margin: 0 auto
+
+input, textarea
+  border: none
+  display: block
+  width: 100%
+  padding: 1vh 0
+  margin: 2vh 0
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  border-bottom: 1px solid #aaaaaa
+  outline: none
+
+button
+  background-color: $main-red
+  font-weight: bold
+  color: $whitish
+  border: none
+  padding: 2vw 3vw
+  -webkit-border-radius: 2vw
+  -moz-border-radius: 2vw
+  border-radius: 2vw
+
+label
+  color: $main-red
+  font-weight: 800
+
+.status-bar
+  font-weight: 800
+  background-color: $main-red
+  color: white
+  width: 100vw
+  position: fixed
+  padding: 1vw
+  bottom: 0
+  display: none
+
+.user-frame
+  width: 100%
+  height: 20vh
+  padding-top: 16vh
+  padding-left: 2vw
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  background-image: url("../tmpImages/user.jpg")
+  -webkit-background-size: cover
+  background-size: cover
+  background-repeat: no-repeat
+  background-position: center
+
+.user-email
+  margin: 0
+  color: $whitish
+  font-weight: 800
+
+.menu
+  background-color: #EB6A69
+  width: 50vw
+  height: 100vh
+  position: fixed
+  top: 0
+
+.kot-list-container
+  width: 80vw
+  margin: 2vh auto
+  padding: 2vw
+
+.kot-list-title
+  color: $main-red
+
+.kot-list-img
+  width: 100%
