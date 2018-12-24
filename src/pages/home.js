@@ -19,10 +19,9 @@ export default () => {
   update(compile(homeTemplate)({ user }));
 
   // wait for compilation
-  const fileButton = document.querySelector('.filetest');
-  // fileButton.addEventListener('change', uploadFile);
   addEventlisteners();
   firebaseRead();
+  checkLoggedIn();
 };
 
 const instance = getInstance();
@@ -30,11 +29,11 @@ const instance = getInstance();
 function checkLoggedIn() {
   instance.auth().onAuthStateChanged((user) => {
     if (user) {
-      // document.querySelector('.user-email').innerHTML = user.email;
+      document.querySelector('.user-email').innerHTML = user.email;
     } else {
       console.log('Not logged In');
-      document.querySelector('.form-signin').style.opacity = 1;
-      // TODO replace css display with handlebars show partial thingy
+      const compiledForm = compile(form)({ type: 'signin', typeCase: 'Sign in', alt: 'signup', altCase: 'Sign up' });
+      document.querySelector('.form-space').innerHTML = compiledForm;
     }
   });
 }
@@ -60,6 +59,7 @@ function SignUp(email, password) {
   });
 }
 
+console.log('email: ' + checkLoggedIn());
 
 function addEventlisteners() {
   document.querySelector('.signin-submit').addEventListener('click', () => {
@@ -68,20 +68,20 @@ function addEventlisteners() {
     SignIn(email, password);
   });
 
-  // document.querySelector('body').addEventListener('click', () => {
-  //   localNotification('Welcome to the crew, status-bar!');
-  // });
-
-  // Test
   // TMP add kot
   document.querySelector('.add-kot-submit').addEventListener('click', () => {
     const kotTitle = document.querySelector('.add-kot-title').value;
     const kotDescription = document.querySelector('.add-kot-description').value;
     const kotAddress = document.querySelector('.add-kot-address').value;
+    const file = e.target.files[0];
+    const storageRef = instance.storage().ref(kotTitle + '/' + file.name);
+    storageRef.put(file);
     instance.database().ref('kots').push({
       title: kotTitle,
       description: kotDescription,
       address: kotAddress,
+      image: storageRef,
+      owner: checkLoggedIn(),
     });
   });
 
@@ -90,12 +90,6 @@ function addEventlisteners() {
   //   const password = document.querySelector('.signup-password').value;
   //   SignUp(email, password);
   // });
-}
-
-function uploadFile(e) {
-  const file = e.target.files[0];
-  const storageRef = instance.storage().ref('testmap/' + file.name);
-  storageRef.put(file);
 }
 
 function firebaseRead() {

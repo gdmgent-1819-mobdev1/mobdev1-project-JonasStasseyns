@@ -1,18 +1,7 @@
-<div class="form form-signin">
-    <h1>Sign in</h1>
-    <input type="email" class="signin-email" placeholder="email...">
-    <input type="password" class="signin-password" placeholder="password...">
-    <button class="signin-submit">Sign in</button>
+<div class="form form-{{type}}">
+    <h1>{{typeCase}}</h1>
+    <input type="email" class="{{type}}-email" placeholder="email...">
+    <input type="password" class="{{type}}-password" placeholder="password...">
+    <button class="{{type}}-submit">{{typeCase}}</button>
+    <button class="{{alt}}-switch btn-alt">{{altCase}}</button>
 </div>
-
-<div class="form form-signup">
-    <h1>Register</h1>
-    <input type="email" class="signup-email" placeholder="email...">
-    <input type="password" class="signup-password" placeholder="password...">
-    <input type="file" class="filetest">
-    <button class="signup-submit">Register</button>
-</div>
-
-<form>
-    <input type="file" class="filetest" name="test" id="test">
-</form>

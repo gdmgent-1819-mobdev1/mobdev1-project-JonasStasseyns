@@ -1,5 +1,5 @@
-{{> form }}
-
+{{> menu }}
+<div class="form-space"></div>
 <form class="form add-kot">
     <h1>Add kot</h1>
     <label>Kot title</label>
@@ -8,9 +8,11 @@
     <textarea class="add-kot-description" placeholder="kot beschrijving"></textarea>
     <label>Kotadres</label>
     <input type="text" class="add-kot-address" placeholder="kotadres">
+    <label>
+        Afbeelding uploaden
+        <input type="file" class="filetest" name="test">
+    </label>
     <button class="add-kot-submit">Toevoegen</button>
 </form>
 <div class="kotlist"></div>
 {{>footer}}
-
-<input type="file" name="image" class="image">
