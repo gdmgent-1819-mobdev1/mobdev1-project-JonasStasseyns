@@ -1,8 +1,54 @@
 {{> header }}
-<form class="form add-kot">
-    <h1>Add kot</h1>
-    <label>Kot title</label>
+<form class="form add-kot add-kot-form">
+    <h2>Add kot</h2>
+    <label>Kot titel</label>
     <input type="text" class="add-kot-title" placeholder="titel van kot">
+    <label>Huurprijs</label>
+    <input type="number" class="add-kot-rent" placeholder="€430">
+    <label>Type kot</label>
+    <select class="add-kot-type">
+        <option value="studio">Studio</option>
+        <option value="room">Kamer</option>
+        <option value="appartment">Appartement</option>
+        <option value="house">Huis</option>
+    </select>
+    <label>Oppervlakte</label>
+    <input type="number" class="add-kot-surface" placeholder="64">
+    <label>Verdieping</label>
+    <input type="number" class="add-kot-floor" placeholder="0, 1, 2, 3, ...">
+    <label>Aantal Personen</label>
+    <input type="number" class="add-kot-residents" placeholder="aantal personen">
+    <label>Toilet</label>
+    <select class="add-kot-toilet">
+        <option value="private">Privé</option>
+        <option value="shared">Gedeeld</option>
+        <option class="none">Geen</option>
+    </select>
+    <label>Douche</label>
+    <select class="add-kot-shower">
+        <option value="private">Privé</option>
+        <option value="shared">Gedeeld</option>
+        <option class="none">Geen</option>
+    </select>
+    <label>Bad</label>
+    <select class="add-kot-bath">
+        <option value="private">Privé</option>
+        <option value="shared">Gedeeld</option>
+        <option class="none">Geen</option>
+    </select>
+    <label>Keuken</label>
+    <select class="add-kot-kitchen">
+        <option value="private">Privé</option>
+        <option value="shared">Gedeeld</option>
+        <option class="none">Geen</option>
+    </select>
+    <label>Bemeubeld</label>
+    <select class="add-kot-furnished">
+        <option value="yes">Ja</option>
+        <option value="yes">Neen</option>
+    </select>
+    <label>Aantal koten in pand</label>
+    <input type="number" class="add-kot-kotcount" placeholder="aantal koten in pand">
     <label>Beschrijving</label>
     <textarea class="add-kot-description" placeholder="kot beschrijving"></textarea>
     <label>Kotadres</label>
@@ -13,3 +59,4 @@
     </label>
     <button class="add-kot-submit">Toevoegen</button>
 </form>
+{{> footer}}

@@ -11,6 +11,8 @@ const form = require('../partials/form.handlebars');
 const kotListTemplate = require('../partials/kotlistteplate.handlebars');
 const menuTemplate = require('../partials/menu.handlebars');
 
+const instance = getInstance();
+
 let currentUser = '';
 
 export default () => {
@@ -21,47 +23,41 @@ export default () => {
   update(compile(homeTemplate)({ user }));
 
   // wait for compilation
-  firebaseRead();
   checkLoggedIn();
   buildMenu();
-};
+  firebaseRead();
 
-export { buildMenu, currentUser };
-
-const instance = getInstance();
-
-function checkLoggedIn(signin) {
-  instance.auth().onAuthStateChanged((user) => {
-    if (user) {
-      currentUser = user;
-      if (signin) {
-        localNotification('Signed in successfully');
-        document.querySelector('.form-signin').remove();
-        buildMenu();
+  function checkLoggedIn(signin) {
+    instance.auth().onAuthStateChanged((user) => {
+      if (user) {
+        currentUser = user;
+        if (signin) {
+          localNotification('Signed in successfully');
+          document.querySelector('.form-signin').remove();
+          buildMenu();
+        }
+      } else {
+        currentUser = 'none';
+        console.log('Not logged In');
       }
-    } else {
-      currentUser = 'none';
-      console.log('Not logged In');
-    }
-  });
-}
+    });
+  }
 
-// instance.auth().signOut();
+  // instance.auth().signOut();
 
-checkLoggedIn();
+  checkLoggedIn();
 
-function SignIn(email, password) {
-  instance.auth().signInWithEmailAndPassword(email, password).catch((error) => {
-    localNotification(error.message);
-    // TODO create element for errormessage
-    // TODO redirect
-  });
-  checkLoggedIn(true);
-}
+  function SignIn(email, password) {
+    instance.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+      localNotification(error.message);
+      // TODO create element for errormessage
+      // TODO redirect
+    });
+    checkLoggedIn(true);
+  }
 
-handlebars.registerPartial('form', compile(form));
-
-
+  handlebars.registerPartial('form', compile(form));
+};
 function SignUp(email, password) {
   instance.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
     const errorMessage = error.message;
@@ -91,7 +87,6 @@ function compileAuthForm(type, typeCase, alt, altCase) {
 
 function buildMenu() {
   // Menu button
-  console.log(currentUser);
   const menu = document.querySelector('.menu');
   document.querySelector('.menu-icon').addEventListener('click', () => {
     const compiledMenu = compile(menuTemplate)({ email: currentUser.email });
@@ -110,14 +105,16 @@ function buildMenu() {
 }
 
 function firebaseRead() {
-  document.querySelector('.kotlist').innerHTML = '';
-  const leadsRef = instance.database().ref();
-  leadsRef.on('value', (snapshot) => {
-    const template = handlebars.compile(kotListTemplate);
-    const templateData = template(snapshot.val());
-    console.log(templateData);
-    document.querySelector('.kotlist').innerHTML = templateData;
-  });
+  const kotList = document.querySelector('.kotlist');
+  if (kotList) {
+    kotList.innerHTML = '';
+    const leadsRef = instance.database().ref();
+    leadsRef.on('value', (snapshot) => {
+      const template = handlebars.compile(kotListTemplate);
+      const templateData = template(snapshot.val());
+      kotList.innerHTML = templateData;
+    });
+  }
 }
 
 function localNotification(message) {
@@ -129,3 +126,4 @@ function localNotification(message) {
     status.style.display = 'none';
   }, 5000);
 }
+export { buildMenu, currentUser, localNotification };
