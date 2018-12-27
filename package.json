@@ -4,7 +4,7 @@
   "description": "Code Template Mobile Development I",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack-dev-server --mode development --open --host 0.0.0.0",
     "build": "webpack --mode production"
   },
   "repository": {

@@ -10,11 +10,12 @@ const homeTemplate = require('../templates/home.handlebars');
 const form = require('../partials/form.handlebars');
 const kotListTemplate = require('../partials/kotlistteplate.handlebars');
 
-
+let currentUser = '';
 
 export default () => {
   // Data to be passed to the template
   const user = 'Test user';
+
   // Return the compiled template to the router
   update(compile(homeTemplate)({ user }));
 
@@ -24,19 +25,27 @@ export default () => {
   checkLoggedIn();
 };
 
+
 const instance = getInstance();
 
-function checkLoggedIn() {
+function checkLoggedIn(signin) {
   instance.auth().onAuthStateChanged((user) => {
     if (user) {
+      currentUser = user;
       document.querySelector('.user-email').innerHTML = user.email;
+      if (signin) {
+        localNotification('Signed in successfully');
+        document.querySelector('.form-signin').remove();
+      }
     } else {
+      currentUser = 'none';
       console.log('Not logged In');
-      const compiledForm = compile(form)({ type: 'signin', typeCase: 'Sign in', alt: 'signup', altCase: 'Sign up' });
-      document.querySelector('.form-space').innerHTML = compiledForm;
+      addEventlisteners();
     }
   });
 }
+
+instance.auth().signOut();
 
 checkLoggedIn();
 
@@ -46,6 +55,7 @@ function SignIn(email, password) {
     // TODO create element for errormessage
     // TODO redirect
   });
+  checkLoggedIn(true);
 }
 
 handlebars.registerPartial('form', compile(form));
@@ -59,60 +69,61 @@ function SignUp(email, password) {
   });
 }
 
-console.log('email: ' + checkLoggedIn());
-
-function addEventlisteners() {
-  document.querySelector('.signin-submit').addEventListener('click', () => {
+function compileAuthForm(type, typeCase, alt, altCase) {
+  const compiledForm = compile(form)({
+    type, typeCase, alt, altCase,
+  });
+  document.querySelector('.form-space').innerHTML = compiledForm;
+  document.querySelector(`.${type}-submit`).addEventListener('click', () => {
     const email = document.querySelector('.signin-email').value;
     const password = document.querySelector('.signin-password').value;
-    SignIn(email, password);
+    if (type === 'signin') {
+      SignIn(email, password);
+    } else if (type === 'signup') {
+      SignUp(email, password);
+    }
+  });
+  document.querySelector(`.${alt}-switch`).addEventListener('click', () => {
+    compileAuthForm(alt, altCase, type, typeCase);
+  });
+}
+
+function addEventlisteners() {
+  //  Signin form submit button
+  // Menu button
+  const menu = document.querySelector('.menu');
+  document.querySelector('.menu-icon').addEventListener('click', () => {
+
+    menu.style.display = 'block';
   });
 
-  // TMP add kot
-  document.querySelector('.add-kot-submit').addEventListener('click', () => {
-    const kotTitle = document.querySelector('.add-kot-title').value;
-    const kotDescription = document.querySelector('.add-kot-description').value;
-    const kotAddress = document.querySelector('.add-kot-address').value;
-    const file = e.target.files[0];
-    const storageRef = instance.storage().ref(kotTitle + '/' + file.name);
-    storageRef.put(file);
-    instance.database().ref('kots').push({
-      title: kotTitle,
-      description: kotDescription,
-      address: kotAddress,
-      image: storageRef,
-      owner: checkLoggedIn(),
-    });
+  // Close Menu button
+  document.querySelector('.close-menu').addEventListener('click', () => {
+    menu.style.display = 'none';
   });
-
-  // document.querySelector('.signup-submit').addEventListener('click', () => {
-  //   const email = document.querySelector('.signup-email').value;
-  //   const password = document.querySelector('.signup-password').value;
-  //   SignUp(email, password);
-  // });
 }
 
 function firebaseRead() {
-  // document.querySelector('.kotlist').innerHTML = '';
+  document.querySelector('.kotlist').innerHTML = '';
   const leadsRef = instance.database().ref();
   leadsRef.on('value', (snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-      const data = childSnapshot.val();
-      console.log(data.title);
-    });
-    console.log(snapshot.val());
     const template = handlebars.compile(kotListTemplate);
     const templateData = template(snapshot.val());
-    document.querySelector('.kotlist').innerHTML = templateData;
     console.log(templateData);
+    document.querySelector('.kotlist').innerHTML = templateData;
   });
 }
 
 function localNotification(message) {
   const status = document.querySelector('.status-bar');
+  console.log(status);
   status.innerHTML = message;
   status.style.display = 'block';
   setTimeout(() => {
     status.style.display = 'none';
   }, 5000);
 }
+export {
+  localNotification,
+  currentUser,
+};

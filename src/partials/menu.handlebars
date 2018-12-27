@@ -1,5 +1,12 @@
-<div class="menu">
+<div class="menu" id="menu">
     <div class="user-frame">
-        <p class="user-email"></p>
+        <p class="user-email">{{email}}</p>
     </div>
+    <i class="fas fa-bars close-menu"></i>
+    <ul>
+        <li>Messages</li>
+        {{#unless user}}
+            <li>Sign in</li>
+        {{/unless}}
+    </ul>
 </div>
