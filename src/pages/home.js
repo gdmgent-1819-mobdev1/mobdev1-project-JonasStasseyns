@@ -9,6 +9,7 @@ import { getInstance } from '../firebase/firebase';
 const homeTemplate = require('../templates/home.handlebars');
 const form = require('../partials/form.handlebars');
 const kotListTemplate = require('../partials/kotlistteplate.handlebars');
+const menuTemplate = require('../partials/menu.handlebars');
 
 let currentUser = '';
 
@@ -20,11 +21,12 @@ export default () => {
   update(compile(homeTemplate)({ user }));
 
   // wait for compilation
-  addEventlisteners();
   firebaseRead();
   checkLoggedIn();
+  buildMenu();
 };
 
+export { buildMenu, currentUser };
 
 const instance = getInstance();
 
@@ -32,20 +34,19 @@ function checkLoggedIn(signin) {
   instance.auth().onAuthStateChanged((user) => {
     if (user) {
       currentUser = user;
-      document.querySelector('.user-email').innerHTML = user.email;
       if (signin) {
         localNotification('Signed in successfully');
         document.querySelector('.form-signin').remove();
+        buildMenu();
       }
     } else {
       currentUser = 'none';
       console.log('Not logged In');
-      addEventlisteners();
     }
   });
 }
 
-instance.auth().signOut();
+// instance.auth().signOut();
 
 checkLoggedIn();
 
@@ -74,7 +75,7 @@ function compileAuthForm(type, typeCase, alt, altCase) {
     type, typeCase, alt, altCase,
   });
   document.querySelector('.form-space').innerHTML = compiledForm;
-  document.querySelector(`.${type}-submit`).addEventListener('click', () => {
+  document.querySelector('.auth-submit').addEventListener('click', () => {
     const email = document.querySelector('.signin-email').value;
     const password = document.querySelector('.signin-password').value;
     if (type === 'signin') {
@@ -88,18 +89,23 @@ function compileAuthForm(type, typeCase, alt, altCase) {
   });
 }
 
-function addEventlisteners() {
-  //  Signin form submit button
+function buildMenu() {
   // Menu button
+  console.log(currentUser);
   const menu = document.querySelector('.menu');
   document.querySelector('.menu-icon').addEventListener('click', () => {
-
+    const compiledMenu = compile(menuTemplate)({ email: currentUser.email });
+    menu.innerHTML = compiledMenu;
     menu.style.display = 'block';
-  });
-
-  // Close Menu button
-  document.querySelector('.close-menu').addEventListener('click', () => {
-    menu.style.display = 'none';
+    document.querySelector('.close-menu').addEventListener('click', () => {
+      menu.style.display = 'none';
+    });
+    if (document.querySelector('.show-signin')) {
+      document.querySelector('.show-signin').addEventListener('click', () => {
+        menu.style.display = 'none';
+        compileAuthForm('signin', 'Sign in', 'signup', 'Sign up');
+      });
+    }
   });
 }
 
@@ -123,7 +129,3 @@ function localNotification(message) {
     status.style.display = 'none';
   }, 5000);
 }
-export {
-  localNotification,
-  currentUser,
-};

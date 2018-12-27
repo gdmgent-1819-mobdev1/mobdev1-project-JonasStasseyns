@@ -7,12 +7,10 @@ import routes from './routes';
 // Partials
 const header = require('./partials/header.handlebars');
 const footer = require('./partials/footer.handlebars');
-const menu = require('./partials/menu.handlebars');
 
 // Register the partial components
-handlebars.registerPartial('header', compile(header)({ title: 'Just another web app' }));
+handlebars.registerPartial('header', compile(header));
 handlebars.registerPartial('footer', compile(footer)({ text: 'Template made with love by GDM Ghent' }));
-handlebars.registerPartial('menu', compile(menu));
 
 // Router logic to load the correct template when needed
 const router = new Navigo(window.location.origin, true);

@@ -1,12 +1,14 @@
-<div class="menu" id="menu">
-    <div class="user-frame">
+<div class="user-frame">
+    {{#if email}}
         <p class="user-email">{{email}}</p>
-    </div>
-    <i class="fas fa-bars close-menu"></i>
-    <ul>
-        <li>Messages</li>
-        {{#unless user}}
-            <li>Sign in</li>
-        {{/unless}}
-    </ul>
+    {{/if}}
 </div>
+<i class="fas fa-bars close-menu"></i>
+<ul>
+    <li><a href="#">Koten bekijken</a></li>
+    <li>Messages</li>
+    <li><a href="#/addkot">Add kot</a></li>
+    {{#unless email}}
+        <li class="show-signin">Sign in</li>
+    {{/unless}}
+</ul>

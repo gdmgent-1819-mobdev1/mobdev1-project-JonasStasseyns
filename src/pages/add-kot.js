@@ -1,32 +1,31 @@
 /* eslint-disable no-use-before-define */
 // Only import the compile function from handlebars instead of the entire library
 import { compile } from 'handlebars';
-import currentUser from './home';
+import { buildMenu, currentUser } from './home';
 import update from '../helpers/update';
 import { getInstance } from '../firebase/firebase';
 
 // Import the template to use
-const homeTemplate = require('../templates/home.handlebars');
-const addKotForm = require('../partials/add-kot.handlebars');
+const addKotTemplate = require('../templates/add-kot.handlebars');
 
 export default () => {
   // Data to be passed to the template
-  const user = 'Test user';
 
-  const compiledForm = compile(addKotForm);
-  document.querySelector('.form-space').innerHTML = compiledForm;
   // Return the compiled template to the router
-  update(compile(homeTemplate)({ user }));
+  update(compile(addKotTemplate)());
 
   // wait for compilation
+  buildMenu();
 };
 
-const instance = getInstance();
 
-const fileUpload = document.querySelector('.file-input');
 
-let fileName;
-let storageRef;
+// const instance = getInstance();
+//
+// const fileUpload = document.querySelector('.file-input');
+//
+// let fileName;
+// let storageRef;
 // if (instance) {
 //   fileUpload.addEventListener('change', (evt) => {
 //     if (fileUpload.value !== '') {
