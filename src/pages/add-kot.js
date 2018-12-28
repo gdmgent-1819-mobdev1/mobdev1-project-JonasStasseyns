@@ -32,12 +32,27 @@ function addEventListeners() {
         fileName = evt.target.files[0].name.replace(/\s+/g, '-').toLowerCase();
         storageRef = instance.storage().ref(`kot-images/${fileName}`);
 
-        storageRef.put(evt.target.files[0]);
+        console.log('File Upload Started');
+
+        const task = storageRef.put(evt.target.files[0]);
+        task.on('state_changed',
+            function progress(snapshot) {
+
+            },
+            function error(err) {
+
+            },
+            function complete() {
+              console.log('File Uploaded');
+              document.querySelector('.add-kot-submit').style.display = 'block';
+            }
+        );
       }
     });
   }
   document.querySelector('.add-kot-submit').addEventListener('click', (e) => {
     e.preventDefault();
+    const image = fileName;
     const title = document.querySelector('.add-kot-title').value;
     const rent = document.querySelector('.add-kot-rent').value;
     const type = document.querySelector('.add-kot-type').value;
@@ -53,6 +68,7 @@ function addEventListeners() {
     const description = document.querySelector('.add-kot-description').value;
     const address = document.querySelector('.add-kot-address').value;
     instance.database().ref('kots').push({
+      image,
       title,
       rent,
       type,

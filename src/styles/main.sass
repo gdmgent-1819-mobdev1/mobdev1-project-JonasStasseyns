@@ -22,8 +22,19 @@ body
 @import 'variables.sass'
 @import 'components.sass'
 
-h1
-  color: $blackish
+// Splash
+.splash
+  width: 100vw
+  height: 100vh
+  background-color: white
+  position: fixed
+  top: 0
+  text-align: center
+
+.splash-logo
+  margin-top: 35vh
+  font-size: 10vw
+  text-align: center
 
 .form-signin, .form-signup
   //display: none
@@ -115,7 +126,7 @@ label
   margin: 2vh auto
   padding: 2vw
 
-.kot-list-title
+h1, h2
   color: $main-red
 
 .kot-list-img
@@ -125,3 +136,26 @@ label
 .menu-icon
   font-size: 5vw
   margin: 3vh 0 0 5vw
+  
+.add-kot-submit
+  display: none
+  margin: 3vh 0
+
+// detail
+table
+  width: 100%
+
+.property
+  font-weight: bold
+  color: $blackish
+
+.value
+  text-align: right
+  color: $blackish
+
+hr
+  border: none
+  border-bottom: 1px solid $blackish
+
+.right
+  text-align: right
