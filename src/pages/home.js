@@ -28,9 +28,6 @@ export default () => {
   checkLoggedIn();
   buildMenu();
   firebaseRead();
-
-  // instance.auth().signOut();
-
   checkLoggedIn();
 
   handlebars.registerPartial('form', compile(form));
@@ -40,6 +37,7 @@ function checkLoggedIn(signin) {
   instance.auth().onAuthStateChanged((user) => {
     if (user) {
       currentUser = user;
+      console.log(user.uid);
       if (signin) {
         localNotification('Signed in successfully');
         document.querySelector('.form-signin').remove();
@@ -52,35 +50,61 @@ function checkLoggedIn(signin) {
   });
 }
 
-function SignIn(email, password) {
-  instance.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+function SignIn(user) {
+  instance.auth().signInWithEmailAndPassword(user.email, user.password).then(() => {
+    localNotification('Signed in successfully');
+  }).catch((error) => {
     localNotification(error.message);
-    // TODO create element for errormessage
-    // TODO redirect
   });
   checkLoggedIn(true);
 }
 
-function SignUp(email, password) {
-  instance.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
-    const errorMessage = error.message;
-    // TODO create element for errormessage
-    // TODO 'Verify email' message
+function SignUp(userInput) {
+  const user = userInput;
+  instance.auth().createUserWithEmailAndPassword(user.email, user.password).then(() => {
+    user.address = `${user.number} ${user.street} ${user.city} ${user.postal}`;
+    const pattern = / /gi;
+    const safeAddress = user.address.replace(pattern, '%20');
+    const res = `https://api.mapbox.com/geocoding/v5/mapbox.places/${safeAddress}.json?types=address&access_token=pk.eyJ1IjoiYnJlYWtpbmcyNjIiLCJhIjoiY2puOWF4d2huMDRtMTNycDg5eTBkaWw2aSJ9.L5hwBhfK_8aFPp6nTCruwQ`;
+    console.log(res);
+    fetch(res).then(response => response.json()).then((data) => {
+      console.log(data);
+      user.longitude = data.features[0].center[0];
+      user.latitude = data.features[0].center[1];
+      instance.database().ref(`users/${user.first}_${user.last}`).set({
+        user,
+      });
+      localNotification('Signed up successfully');
+    });
+  }).catch((error) => {
+    localNotification(error.message);
   });
 }
 
 function compileAuthForm(type, typeCase, alt, altCase) {
+  const showSelect = (type === 'signup');
   const compiledForm = compile(form)({
-    type, typeCase, alt, altCase,
+    type, typeCase, alt, altCase, showSelect,
   });
   document.querySelector('.form-space').innerHTML = compiledForm;
   document.querySelector('.auth-submit').addEventListener('click', () => {
-    const email = document.querySelector('.signin-email').value;
-    const password = document.querySelector('.signin-password').value;
+    const user = {
+      first: document.querySelector('.auth-first').value,
+      last: document.querySelector('.auth-last').value,
+      street: document.querySelector('.auth-street').value,
+      number: document.querySelector('.auth-number').value,
+      city: document.querySelector('.auth-city').value,
+      postal: document.querySelector('.auth-postal').value,
+      phone: document.querySelector('.auth-phone').value,
+      school: document.querySelector('.auth-school').value,
+      email: document.querySelector('.auth-email').value,
+      password: document.querySelector('.auth-password').value,
+      userType: document.querySelector('.signup-type').value,
+    };
     if (type === 'signin') {
-      SignIn(email, password);
+      SignIn(user);
     } else if (type === 'signup') {
-      SignUp(email, password);
+      SignUp(user);
     }
   });
   document.querySelector(`.${alt}-switch`).addEventListener('click', () => {
@@ -103,6 +127,11 @@ function buildMenu() {
         menu.style.display = 'none';
         compileAuthForm('signin', 'Sign in', 'signup', 'Sign up');
       });
+    } else {
+      document.querySelector('.signout').addEventListener('click', () => {
+        instance.auth().signOut();
+        buildMenu();
+      });
     }
   });
 }
@@ -121,6 +150,10 @@ function firebaseRead() {
       }, 1000);
     });
   }
+}
+
+function getCoordinates(address) {
+
 }
 
 function localNotification(message) {

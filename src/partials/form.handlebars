@@ -1,7 +1,22 @@
 <div class="form form-{{type}}">
     <h1>{{typeCase}}</h1>
-    <input type="email" class="{{type}}-email" placeholder="email...">
-    <input type="password" class="{{type}}-password" placeholder="password...">
+    {{#if showSelect}}
+        <input type="text" class="auth-first" placeholder="voornaam">
+        <input type="text" class="auth-last" placeholder="naam">
+        <input type="text" class="auth-street" placeholder="straatnaam">
+        <input type="number" class="auth-number" placeholder="huisnummer">
+        <input type="text" class="auth-city" placeholder="plaats">
+        <input type="num" class="auth-postal" placeholder="postcode">
+        <input type="tel" class="auth-phone" placeholder="telefoonnummer">
+        <input type="text" class="auth-school" placeholder="naam hogeschool of universiteit">
+        <label>Type account</label>
+        <select class="signup-type">
+            <option value="student">Student</option>
+            <option value="owner">Kotbaas</option>
+        </select>
+    {{/if}}
+    <input type="email" class="auth-email" placeholder="email...">
+    <input type="password" class="auth-password" placeholder="wachtwoord...">
     <button class="auth-submit">{{typeCase}}</button>
     <button class="{{alt}}-switch btn-alt">{{altCase}}</button>
 </div>

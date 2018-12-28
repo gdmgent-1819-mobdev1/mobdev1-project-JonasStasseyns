@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecfa339f-8131-4adb-8f1a-4bd0940f79a6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/partials/kotdetail.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/templates/detail.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/add-kot.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/add-kot.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/partials/kotlistteplate.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/partials/kotlistteplate.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/partials/form.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/partials/form.handlebars" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/partials/menu.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/partials/menu.handlebars" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/main.sass" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/main.sass" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/add-kot.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/add-kot.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/home.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/home.handlebars" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,12 +52,12 @@
           <entry key="CSS" value="3" />
           <entry key="EJS" value="8" />
           <entry key="HTML" value="3" />
-          <entry key="Handlebars/Mustache" value="55" />
+          <entry key="Handlebars/Mustache" value="57" />
           <entry key="JSON" value="13" />
           <entry key="JavaScript" value="85" />
           <entry key="Markdown" value="3" />
           <entry key="PLAIN_TEXT" value="8" />
-          <entry key="Sass" value="32" />
+          <entry key="Sass" value="33" />
           <entry key="htaccess" value="3" />
         </counts>
       </usages-collector>
@@ -78,10 +73,10 @@
         <counts>
           <entry key="EJS" value="1" />
           <entry key="HTML" value="163" />
-          <entry key="Handlebars/Mustache" value="4520" />
+          <entry key="Handlebars/Mustache" value="4951" />
           <entry key="JSON" value="30" />
-          <entry key="JavaScript" value="12771" />
-          <entry key="Sass" value="2887" />
+          <entry key="JavaScript" value="14662" />
+          <entry key="Sass" value="2901" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts">
@@ -93,11 +88,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/partials/form.handlebars">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="68" lean-forward="true" selection-start-line="3" selection-start-column="68" selection-end-line="3" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/home.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="120" column="11" selection-start-line="120" selection-start-column="11" selection-end-line="120" selection-end-column="11" />
+            <state relative-caret-position="368">
+              <caret line="72" column="10" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#124#161#0" expanded="true" />
@@ -111,6 +115,24 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
               <caret line="1" selection-start-line="1" selection-end-line="6" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/styles/variables.sass">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/partials/menu.handlebars">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -137,31 +159,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-              <folding>
-                <element signature="e#9#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/styles/main.sass">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="30" column="8" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/templates/add-kot.handlebars">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="47" column="27" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
+            <state relative-caret-position="367">
+              <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -169,8 +170,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/add-kot.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+            <state relative-caret-position="-69">
+              <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
               <folding>
                 <element signature="e#124#161#0" expanded="true" />
               </folding>
@@ -194,8 +195,8 @@
       <find>&quot;</find>
       <find>start</find>
       <find>form</find>
-      <find>add</find>
       <find>firebaseRead</find>
+      <find>add</find>
     </findStrings>
     <replaceStrings>
       <replace>'</replace>
@@ -224,13 +225,10 @@
         <option value="$PROJECT_DIR$/src/html/index.ejs" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/firebase/firebase.js" />
-        <option value="$PROJECT_DIR$/src/partials/form.handlebars" />
         <option value="$PROJECT_DIR$/src/partials/add-kot.handlebars" />
         <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/src/partials/menu.handlebars" />
         <option value="$PROJECT_DIR$/src/styles/components.sass" />
         <option value="$PROJECT_DIR$/src/partials/header.handlebars" />
-        <option value="$PROJECT_DIR$/src/pages/add-kot.js" />
         <option value="$PROJECT_DIR$/src/routes.js" />
         <option value="$PROJECT_DIR$/src/partials/kotlistteplate.handlebars" />
         <option value="$PROJECT_DIR$/src/pages/detail.js" />
@@ -239,6 +237,9 @@
         <option value="$PROJECT_DIR$/src/partials/kotdetail.handlebars" />
         <option value="$PROJECT_DIR$/src/templates/home.handlebars" />
         <option value="$PROJECT_DIR$/src/styles/main.sass" />
+        <option value="$PROJECT_DIR$/src/pages/add-kot.js" />
+        <option value="$PROJECT_DIR$/src/partials/form.handlebars" />
+        <option value="$PROJECT_DIR$/src/partials/menu.handlebars" />
         <option value="$PROJECT_DIR$/src/pages/home.js" />
       </list>
     </option>
@@ -421,12 +422,12 @@
       <workItem from="1544907865066" duration="2816000" />
       <workItem from="1544958858187" duration="1063000" />
       <workItem from="1545143962072" duration="7973000" />
-      <workItem from="1545572313765" duration="51674000" />
+      <workItem from="1545572313765" duration="57225000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80753000" />
+    <option name="totallyTimeSpent" value="86304000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1438" height="822" extended-state="6" />
@@ -437,7 +438,7 @@
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3298153" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39973614" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -632,24 +633,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/partials/form.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/firebase/firebase.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="27" column="13" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/partials/menu.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -704,16 +691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/add-kot.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
-          <folding>
-            <element signature="e#124#161#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/add-kot.handlebars">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="411">
@@ -721,10 +698,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/styles/variables.sass">
+    <entry file="file://$PROJECT_DIR$/src/partials/kotdetail.handlebars">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="18" />
+        <state relative-caret-position="621">
+          <caret line="55" column="19" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/home.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="11" lean-forward="true" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -738,10 +722,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/partials/kotdetail.handlebars">
+    <entry file="file://$PROJECT_DIR$/src/styles/main.sass">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="55" column="19" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+        <state relative-caret-position="367">
+          <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/add-kot.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-69">
+          <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
+          <folding>
+            <element signature="e#124#161#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/styles/variables.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -752,24 +753,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/home.handlebars">
+    <entry file="file://$PROJECT_DIR$/src/partials/menu.handlebars">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="11" lean-forward="true" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+        <state relative-caret-position="210">
+          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/styles/main.sass">
+    <entry file="file://$PROJECT_DIR$/src/partials/form.handlebars">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="30" column="8" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+        <state relative-caret-position="45">
+          <caret line="3" column="68" lean-forward="true" selection-start-line="3" selection-start-column="68" selection-end-line="3" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/home.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="120" column="11" selection-start-line="120" selection-start-column="11" selection-end-line="120" selection-end-column="11" />
+        <state relative-caret-position="368">
+          <caret line="72" column="10" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#124#161#0" expanded="true" />

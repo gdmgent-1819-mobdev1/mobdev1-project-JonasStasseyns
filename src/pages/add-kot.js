@@ -36,16 +36,16 @@ function addEventListeners() {
 
         const task = storageRef.put(evt.target.files[0]);
         task.on('state_changed',
-            function progress(snapshot) {
+          function progress(snapshot) {
 
-            },
-            function error(err) {
+          },
+          function error(err) {
 
-            },
-            function complete() {
-              console.log('File Uploaded');
-              document.querySelector('.add-kot-submit').style.display = 'block';
-            }
+          },
+          function complete() {
+            console.log('File Uploaded');
+            document.querySelector('.add-kot-submit').style.display = 'block';
+          }
         );
       }
     });
