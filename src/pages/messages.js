@@ -30,6 +30,7 @@ function getMessages() {
       newmessage: true,
     });
     document.querySelector('.towhom').addEventListener('input', () => {
+      const myCode = `${currentUser.first}_${currentUser.last}`;
       document.querySelector('.foundrecipcontainer').innerHTML = '';
       if (document.querySelector('.towhom').value !== '') {
         const recipQuery = firebase.database().ref('users').orderByChild('first');
@@ -37,16 +38,26 @@ function getMessages() {
           snapshot.forEach((result) => {
             const recip = result.val();
             const recipName = `${recip.first} ${recip.last}`;
+            const recipCode = `${recip.first}_${recip.last}`
             // console.log(result.val());
             if (recipName.toLowerCase().includes(document.querySelector('.towhom').value.toLowerCase())) {
-              document.querySelector('.foundrecipcontainer').innerHTML += '<p class="found-recip" id="' + result.key + '">' + recipName + '</p>';
+              document.querySelector('.foundrecipcontainer').innerHTML += '<p class="found-recip" id="' + recipCode + '">' + recipName + '</p>';
             }
           });
           const foundRecipElements = document.querySelectorAll('.found-recip');
           foundRecipElements.forEach((recipElement) => {
             recipElement.addEventListener('click', (e) => {
-              // TODO Display selected recipient
+              document.querySelector('.selected-recip').innerHTML = e.target.innerText;
+              document.querySelector('.foundrecipcontainer').innerHTML = '';
               // TODO Make sure this is where the message is sent
+              document.querySelector('.send-message-new').addEventListener('click', () => {
+                firebase.database().ref(`messages/${e.target.id}`).update({
+                  [myCode]: document.querySelector('.compose-textarea').value,
+                });
+                firebase.database().ref(`messages/${myCode}`).update({
+                  [e.target.id]: 'You: ' + document.querySelector('.compose-textarea').value,
+                });
+              });
             });
           });
         });
@@ -105,10 +116,10 @@ function getMessages() {
                         const sendContent = document.querySelector('.compose-textarea').value;
                         console.log(to);
                         console.log(sendContent);
-                        firebase.database().ref(`messages/${to}`).set({
+                        firebase.database().ref(`messages/${to}`).update({
                           [nameKey]: sendContent,
                         });
-                        firebase.database().ref(`messages/${nameKey}`).set({
+                        firebase.database().ref(`messages/${nameKey}`).update({
                           [to]: `You: ${sendContent}`,
                         });
                       });
@@ -125,3 +136,5 @@ function getMessages() {
     }
   });
 }
+
+// BUG when sending message to a recipient who still has an unreplied message from you, you overwrite that message

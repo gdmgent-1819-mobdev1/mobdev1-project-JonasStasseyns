@@ -10,9 +10,13 @@
     {{#unless newmessage}}
         <h3>To: <span class="to">{{from}}</span></h3>
     {{else}}
-        <h3>To: <input type="text" class="towhom" placeholder="typ contact"></h3>
+        <h3>To: <span class="selected-recip"><input type="text" class="towhom" placeholder="typ contact"></span></h3>
         <div class="foundrecipcontainer"></div>
     {{/unless}}
     <textarea class="compose-textarea" placeholder="bericht samenstellen"></textarea>
-    <button class="send-message">Versturen</button>
+    {{#if newmessage}}
+        <button class="send-message-new">Versturen</button>
+    {{else}}
+        <button class="send-message">Versturen</button>
+    {{/if}}
 </div>

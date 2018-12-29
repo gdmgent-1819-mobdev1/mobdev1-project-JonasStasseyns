@@ -5,8 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/messages.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/partials/composemessage.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/partials/composemessage.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/main.sass" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/main.sass" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/messages.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/messages.handlebars" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,9 +71,9 @@
         <counts>
           <entry key="EJS" value="1" />
           <entry key="HTML" value="163" />
-          <entry key="Handlebars/Mustache" value="5810" />
+          <entry key="Handlebars/Mustache" value="5890" />
           <entry key="JSON" value="30" />
-          <entry key="JavaScript" value="21163" />
+          <entry key="JavaScript" value="21804" />
           <entry key="Sass" value="3811" />
         </counts>
       </usages-collector>
@@ -91,8 +89,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/messages.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="48" column="65" selection-start-line="48" selection-start-column="65" selection-end-line="48" selection-end-column="65" />
+            <state relative-caret-position="677">
+              <caret line="139" column="114" selection-start-line="139" selection-start-column="114" selection-end-line="139" selection-end-column="114" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#124#161#0" expanded="true" />
@@ -104,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/partials/composemessage.handlebars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="41" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+            <state relative-caret-position="255">
+              <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -159,8 +157,8 @@
       <find>form</find>
       <find>firebaseRead</find>
       <find>add</find>
-      <find>menu</find>
       <find>you</find>
+      <find>menu</find>
     </findStrings>
     <replaceStrings>
       <replace>'</replace>
@@ -246,9 +244,9 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="339" />
+    <option name="x" value="359" />
     <option name="y" value="23" />
-    <option name="width" value="1099" />
+    <option name="width" value="1079" />
     <option name="height" value="822" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -394,15 +392,15 @@
       <workItem from="1544907865066" duration="2816000" />
       <workItem from="1544958858187" duration="1063000" />
       <workItem from="1545143962072" duration="7973000" />
-      <workItem from="1545572313765" duration="78735000" />
+      <workItem from="1545572313765" duration="80224000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107814000" />
+    <option name="totallyTimeSpent" value="109303000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="339" y="23" width="1099" height="822" extended-state="0" />
+    <frame x="359" y="23" width="1079" height="822" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.21759698" />
@@ -751,13 +749,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/styles/main.sass">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="211" column="13" selection-start-line="211" selection-start-column="13" selection-end-line="211" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/partials/messagepartial.handlebars">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -776,17 +767,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/styles/main.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="211" column="13" selection-start-line="211" selection-start-column="13" selection-end-line="211" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/partials/composemessage.handlebars">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="41" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+        <state relative-caret-position="255">
+          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/messages.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="48" column="65" selection-start-line="48" selection-start-column="65" selection-end-line="48" selection-end-column="65" />
+        <state relative-caret-position="677">
+          <caret line="139" column="114" selection-start-line="139" selection-start-column="114" selection-end-line="139" selection-end-column="114" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#124#161#0" expanded="true" />
