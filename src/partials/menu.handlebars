@@ -7,7 +7,9 @@
 <ul>
     <li><a href="#">Koten bekijken</a></li>
     <li>Messages</li>
-    <li><a href="/#/addkot">Add kot</a></li>
+    {{#if owner}}
+        <li><a href="/#/addkot">Add kot</a></li>
+    {{/if}}
     {{#unless email}}
         <li class="show-signin">Sign in</li>
     {{/unless}}

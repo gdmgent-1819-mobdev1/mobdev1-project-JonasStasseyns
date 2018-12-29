@@ -36,23 +36,29 @@ export default () => {
 function checkLoggedIn(signin) {
   instance.auth().onAuthStateChanged((user) => {
     if (user) {
-      currentUser = user;
-      console.log(user.uid);
+      const users = instance.database().ref('users');
+      const query = users.orderByChild('email').equalTo('lisa.deprez@hotmail.com').limitToFirst(1);
+      query.on('value', (snap) => {
+        snap.forEach((child) => {
+          currentUser = child.val();
+          console.log(currentUser);
+        });
+      });
+
       if (signin) {
-        localNotification('Signed in successfully');
         document.querySelector('.form-signin').remove();
-        buildMenu();
       }
     } else {
       currentUser = 'none';
       console.log('Not logged In');
     }
+    buildMenu();
   });
 }
 
 function SignIn(user) {
   instance.auth().signInWithEmailAndPassword(user.email, user.password).then(() => {
-    localNotification('Signed in successfully');
+    localNotification('Successvol ingelogd');
   }).catch((error) => {
     localNotification(error.message);
   });
@@ -71,10 +77,20 @@ function SignUp(userInput) {
       console.log(data);
       user.longitude = data.features[0].center[0];
       user.latitude = data.features[0].center[1];
-      instance.database().ref(`users/${user.first}_${user.last}`).set({
-        user,
+      instance.database().ref('users').push({
+        first: user.first,
+        last: user.last,
+        email: user.email,
+        password: user.password,
+        street: user.street,
+        number: user.number,
+        city: user.city,
+        postal: user.postal,
+        school: user.school,
+        userType: user.userType,
       });
-      localNotification('Signed up successfully');
+      localNotification('Succesvol geregistreerd');
+      document.querySelector('.form-signup').remove();
     });
   }).catch((error) => {
     localNotification(error.message);
@@ -88,22 +104,26 @@ function compileAuthForm(type, typeCase, alt, altCase) {
   });
   document.querySelector('.form-space').innerHTML = compiledForm;
   document.querySelector('.auth-submit').addEventListener('click', () => {
-    const user = {
-      first: document.querySelector('.auth-first').value,
-      last: document.querySelector('.auth-last').value,
-      street: document.querySelector('.auth-street').value,
-      number: document.querySelector('.auth-number').value,
-      city: document.querySelector('.auth-city').value,
-      postal: document.querySelector('.auth-postal').value,
-      phone: document.querySelector('.auth-phone').value,
-      school: document.querySelector('.auth-school').value,
-      email: document.querySelector('.auth-email').value,
-      password: document.querySelector('.auth-password').value,
-      userType: document.querySelector('.signup-type').value,
-    };
     if (type === 'signin') {
+      const user = {
+        email: document.querySelector('.auth-email').value,
+        password: document.querySelector('.auth-password').value,
+      };
       SignIn(user);
     } else if (type === 'signup') {
+      const user = {
+        first: document.querySelector('.auth-first').value,
+        last: document.querySelector('.auth-last').value,
+        street: document.querySelector('.auth-street').value,
+        number: document.querySelector('.auth-number').value,
+        city: document.querySelector('.auth-city').value,
+        postal: document.querySelector('.auth-postal').value,
+        phone: document.querySelector('.auth-phone').value,
+        school: document.querySelector('.auth-school').value,
+        email: document.querySelector('.auth-email').value,
+        password: document.querySelector('.auth-password').value,
+        userType: document.querySelector('.signup-type').value,
+      };
       SignUp(user);
     }
   });
@@ -113,10 +133,12 @@ function compileAuthForm(type, typeCase, alt, altCase) {
 }
 
 function buildMenu() {
-  // Menu button
   const menu = document.querySelector('.menu');
   document.querySelector('.menu-icon').addEventListener('click', () => {
-    const compiledMenu = compile(menuTemplate)({ email: currentUser.email });
+    const compiledMenu = compile(menuTemplate)({
+      email: currentUser.email,
+      owner: (currentUser.userType === 'owner'),
+    });
     menu.innerHTML = compiledMenu;
     menu.style.display = 'block';
     document.querySelector('.close-menu').addEventListener('click', () => {
@@ -130,7 +152,9 @@ function buildMenu() {
     } else {
       document.querySelector('.signout').addEventListener('click', () => {
         instance.auth().signOut();
-        buildMenu();
+        checkLoggedIn();
+        menu.style.display = 'none';
+        localNotification('Uitgelogd');
       });
     }
   });
@@ -150,10 +174,6 @@ function firebaseRead() {
       }, 1000);
     });
   }
-}
-
-function getCoordinates(address) {
-
 }
 
 function localNotification(message) {
