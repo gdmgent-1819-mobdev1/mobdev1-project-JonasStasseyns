@@ -13,39 +13,37 @@ const menuTemplate = require('../partials/menu.handlebars');
 
 const instance = getInstance();
 
-// window.location.href = '/#/detail';
+window.location.href = '/#/messages';
 
-let currentUser = '';
+let currentUser;
 
 export default () => {
   // Data to be passed to the template
   const user = 'Test user';
 
   // Return the compiled template to the router
-  update(compile(homeTemplate)({ user }));
+  update(compile(homeTemplate)());
 
   // wait for compilation
   checkLoggedIn();
   buildMenu();
   firebaseRead();
   checkLoggedIn();
-
-  handlebars.registerPartial('form', compile(form));
 };
 
 function checkLoggedIn(signin) {
   instance.auth().onAuthStateChanged((user) => {
     if (user) {
       const users = instance.database().ref('users');
-      const query = users.orderByChild('email').equalTo('lisa.deprez@hotmail.com').limitToFirst(1);
+      const query = users.orderByChild('email').equalTo(user.email).limitToFirst(1);
       query.on('value', (snap) => {
         snap.forEach((child) => {
           currentUser = child.val();
           console.log(currentUser);
+          localNotification(currentUser.email);
         });
       });
-
-      if (signin) {
+      if (signin && document.querySelector('.form-signin')) {
         document.querySelector('.form-signin').remove();
       }
     } else {
@@ -135,10 +133,19 @@ function compileAuthForm(type, typeCase, alt, altCase) {
 function buildMenu() {
   const menu = document.querySelector('.menu');
   document.querySelector('.menu-icon').addEventListener('click', () => {
+    // localNotification('eeeeeeeeeeeee: ');
+    console.log(currentUser.email);
+    const isOwner = (currentUser.userType === 'owner');
+    const email = currentUser.email;
+
     const compiledMenu = compile(menuTemplate)({
-      email: currentUser.email,
-      owner: (currentUser.userType === 'owner'),
+      email: email,
+      owner: isOwner,
     });
+    // const compiledMenu = compile(menuTemplate)({
+    //   email: 'stasseynsjonas@gmail.com',
+    //   owner: (currentUser.userType === 'owner'),
+    // });
     menu.innerHTML = compiledMenu;
     menu.style.display = 'block';
     document.querySelector('.close-menu').addEventListener('click', () => {

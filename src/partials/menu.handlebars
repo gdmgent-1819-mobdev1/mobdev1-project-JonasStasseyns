@@ -6,7 +6,9 @@
 <i class="fas fa-bars close-menu"></i>
 <ul>
     <li><a href="#">Koten bekijken</a></li>
-    <li>Messages</li>
+    {{#if email}}
+        <li><a href="/#/messages">Messages</a></li>
+    {{/if}}
     {{#if owner}}
         <li><a href="/#/addkot">Add kot</a></li>
     {{/if}}

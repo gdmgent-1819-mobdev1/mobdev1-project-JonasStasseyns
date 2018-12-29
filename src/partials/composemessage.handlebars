@@ -1,0 +1,11 @@
+<div class="messagefrom">
+    <h3>From: {{#unless fromyou}}{{from}}{{else}}You{{/unless}}</h3>
+    <h3>To: {{#if fromyou}}{{from}}{{else}}You{{/if}}</h3>
+    <p>{{mess}}</p>
+</div>
+<div class="messageto">
+    <h3>From: You</h3>
+    <h3>To: <span class="to">{{from}}</span></h3>
+    <textarea class="compose-textarea" placeholder="bericht samenstellen"></textarea>
+    <button class="send-message">Versturen</button>
+</div>
