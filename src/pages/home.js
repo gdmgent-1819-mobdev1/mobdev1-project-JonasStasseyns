@@ -9,11 +9,12 @@ import { getInstance } from '../firebase/firebase';
 const homeTemplate = require('../templates/home.handlebars');
 const form = require('../partials/form.handlebars');
 const kotListTemplate = require('../partials/kotlistteplate.handlebars');
+const kotSwiperTemplate = require('../partials/kotswipertemplate.handlebars');
 const menuTemplate = require('../partials/menu.handlebars');
 
 const instance = getInstance();
 
-window.location.href = '/#/messages';
+// window.location.href = '/#/messages';
 
 let currentUser;
 
@@ -27,12 +28,11 @@ export default () => {
   // wait for compilation
   checkLoggedIn();
   buildMenu();
-  firebaseRead();
-  checkLoggedIn();
 };
 
 function checkLoggedIn(signin) {
   instance.auth().onAuthStateChanged((user) => {
+    console.log('oi?');
     if (user) {
       const users = instance.database().ref('users');
       const query = users.orderByChild('email').equalTo(user.email).limitToFirst(1);
@@ -41,6 +41,7 @@ function checkLoggedIn(signin) {
           currentUser = child.val();
           console.log(currentUser);
           localNotification(currentUser.email);
+          firebaseRead('swiper');
         });
       });
       if (signin && document.querySelector('.form-signin')) {
@@ -139,7 +140,7 @@ function buildMenu() {
     const email = currentUser.email;
 
     const compiledMenu = compile(menuTemplate)({
-      email: email,
+      email,
       owner: isOwner,
     });
     // const compiledMenu = compile(menuTemplate)({
@@ -167,15 +168,46 @@ function buildMenu() {
   });
 }
 
-function firebaseRead() {
+function firebaseRead(type) {
   const kotList = document.querySelector('.kotlist');
   if (kotList) {
     kotList.innerHTML = '';
-    const leadsRef = instance.database().ref(('kots'));
+    const leadsRef = instance.database().ref('kots');
     leadsRef.on('value', (snapshot) => {
-      const compiledTemplate = handlebars.compile(kotListTemplate)(snapshot.val());
+      let compiledTemplate;
+      if (type === 'list') {
+        compiledTemplate = handlebars.compile(kotListTemplate)(snapshot.val());
+      } else if (type === 'swiper') {
+        compiledTemplate = handlebars.compile(kotSwiperTemplate)(snapshot.val());
+      } else if (type === 'map') {
+        // const compiledTemplate = handlebars.compile(kotMapTemplate)(snapshot.val());
+      }
       kotList.innerHTML = compiledTemplate;
       addDetailClickEvents();
+      if (type === 'swiper') {
+        const kotElements = document.querySelectorAll('.kot-swiper-container');
+        for (let i = 0; i < kotElements.length; i++) {
+          kotElements[i].style.zIndex = (i + 1);
+          const favRef = instance.database().ref('favs/'+currentUser.first+'_'+currentUser.last);
+          const favRefQuery = favRef.orderByValue().equalTo(kotElements[i].id);
+          favRefQuery.on('value', (snapshot) => {
+            if (snapshot.val() != null) {
+              kotElements[i].remove();
+            }
+          });
+          favRef.on('value', (favs) => {
+
+          });
+        }
+        const likeButtons = document.querySelectorAll('.fa-thumbs-up');
+        likeButtons.forEach((likeBtn) => {
+          console.log('poef');
+          likeBtn.addEventListener('click', (e) => {
+            instance.database().ref(`favs/${currentUser.first}_${currentUser.last}`).push(e.currentTarget.id);
+            document.querySelector(`.kot-swiper-container#${e.target.id}`).remove();
+          });
+        });
+      }
       setTimeout(() => {
         document.querySelector('.splash').style.display = 'none';
       }, 1000);

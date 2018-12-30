@@ -104,6 +104,10 @@ label
   position: fixed
   top: 0
   display: none
+  z-index: 1000
+  -webkit-box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.2)
+  -moz-box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.2)
+  box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.2)
 
 .menu ul
   margin: 0
@@ -136,7 +140,19 @@ h1, h2, h3
 .menu-icon
   font-size: 5vw
   margin: 3vh 0 0 5vw
-  
+
+.view-icon-container
+  position: absolute
+  top: 1vh
+  right: 5vw
+
+.view-icon
+  font-size: 1.4em
+  padding: 0 1vw
+
+.fa-list-ul
+  color: $main-red
+
 .add-kot-submit
   display: none
   margin: 3vh 0
@@ -210,3 +226,38 @@ hr
   position: fixed
   right: 5vw
   bottom: 5vh
+
+.kot-swiper-container
+  width: 90vw
+  height: 72vh
+  padding: 2vw
+  margin: 0 auto
+  position: absolute
+  left: 5vw
+  top: 15vh
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  background-color: white
+  -webkit-box-shadow: 3px 3px 10px rgba(0,0,0,0.2)
+  -moz-box-shadow: 3px 3px 10px rgba(0,0,0,0.2)
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2)
+
+.rate-container
+  padding: 5vw
+  width: 80%
+  margin: 0 auto
+  text-align: center
+
+.likedislike
+  font-size: 10vw
+  width: 20vw
+  height: 20vw
+  display: inline-block
+  margin: 0
+
+.fa-thumbs-up
+  color: #4caf50
+
+.fa-thumbs-down
+  color: #f44336
