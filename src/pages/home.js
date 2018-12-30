@@ -2,14 +2,17 @@
 // Only import the compile function from handlebars instead of the entire library
 import { compile } from 'handlebars';
 import handlebars from 'handlebars';
+import mapboxgl from 'mapbox-gl';
 import update from '../helpers/update';
 import { getInstance } from '../firebase/firebase';
+import config from '../config';
 
 // Import the template to use
 const homeTemplate = require('../templates/home.handlebars');
 const form = require('../partials/form.handlebars');
 const kotListTemplate = require('../partials/kotlistteplate.handlebars');
 const kotSwiperTemplate = require('../partials/kotswipertemplate.handlebars');
+const kotMapTemplate = require('../partials/kotmaptemplate.handlebars');
 const menuTemplate = require('../partials/menu.handlebars');
 
 const instance = getInstance();
@@ -19,9 +22,6 @@ const instance = getInstance();
 let currentUser;
 
 export default () => {
-  // Data to be passed to the template
-  const user = 'Test user';
-
   // Return the compiled template to the router
   update(compile(homeTemplate)());
 
@@ -34,6 +34,31 @@ function checkLoggedIn(signin) {
   instance.auth().onAuthStateChanged((user) => {
     console.log('oi?');
     if (user) {
+      if (document.querySelector('.view-icon-container')) {
+        document.querySelector('.view-icon-container').style.display = 'block';
+        const vics = document.querySelectorAll('.view-icon');
+        document.querySelector('.fa-list-ul').addEventListener('click', (e) => {
+          firebaseRead('list');
+          vics.forEach((vic) => {
+            vic.classList.remove('active');
+          });
+          e.target.classList.add('active');
+        });
+        document.querySelector('.fa-map-marker-alt').addEventListener('click', (e) => {
+          firebaseRead('map');
+          vics.forEach((vic) => {
+            vic.classList.remove('active');
+          });
+          e.target.classList.add('active');
+        });
+        document.querySelector('.fa-arrows-alt-h').addEventListener('click', (e) => {
+          firebaseRead('swiper');
+          vics.forEach((vic) => {
+            vic.classList.remove('active');
+          });
+          e.target.classList.add('active');
+        });
+      }
       const users = instance.database().ref('users');
       const query = users.orderByChild('email').equalTo(user.email).limitToFirst(1);
       query.on('value', (snap) => {
@@ -41,7 +66,7 @@ function checkLoggedIn(signin) {
           currentUser = child.val();
           console.log(currentUser);
           localNotification(currentUser.email);
-          firebaseRead('swiper');
+          firebaseRead('list');
         });
       });
       if (signin && document.querySelector('.form-signin')) {
@@ -135,6 +160,7 @@ function buildMenu() {
   const menu = document.querySelector('.menu');
   document.querySelector('.menu-icon').addEventListener('click', () => {
     // localNotification('eeeeeeeeeeeee: ');
+    checkLoggedIn();
     console.log(currentUser.email);
     const isOwner = (currentUser.userType === 'owner');
     const email = currentUser.email;
@@ -180,24 +206,71 @@ function firebaseRead(type) {
       } else if (type === 'swiper') {
         compiledTemplate = handlebars.compile(kotSwiperTemplate)(snapshot.val());
       } else if (type === 'map') {
-        // const compiledTemplate = handlebars.compile(kotMapTemplate)(snapshot.val());
+        compiledTemplate = handlebars.compile(kotMapTemplate)();
       }
       kotList.innerHTML = compiledTemplate;
+      // Second if type===map because the partial must be rendered before initializing map
+      if (type === 'map') {
+        if (config.mapBoxToken) {
+          mapboxgl.accessToken = config.mapBoxToken;
+          // eslint-disable-next-line no-unused-vars
+          const map = new mapboxgl.Map({
+            container: 'map',
+            center: [3.721866, 51.054118],
+            style: 'mapbox://styles/mapbox/streets-v9',
+            zoom: 11,
+          });
+          // SAMPLECODE
+          const geojson = snapshot;
+          geojson.forEach((marker) => {
+            const markerValue = marker.val();
+            const coords = {
+              lng: markerValue.lon,
+              lat: markerValue.lat,
+            };
+            const el = document.createElement('div');
+            el.className = 'marker';
+            new mapboxgl.Marker(el).setLngLat(coords).addTo(map)
+              .setPopup(new mapboxgl.Popup({ anchor: 'bottom', className: 'popup' })
+                .setHTML(`<h3 class="popup-h3">${markerValue.title}</h3><p class="popup-p">${markerValue.description}</p><button class="go-to-detail" id="${marker.key}">Meer info</button>`))
+              .addTo(map);
+          });
+          const markers = document.querySelectorAll('.marker');
+          console.log(markers);
+          markers.forEach((marker) => {
+            console.log(marker);
+            marker.addEventListener('click', () => {
+              setTimeout(addDetailClickEvents, 200);
+            });
+          });
+        } else {
+          console.error('Mapbox will crash the page if no access token is given.');
+        }
+      }
       addDetailClickEvents();
       if (type === 'swiper') {
         const kotElements = document.querySelectorAll('.kot-swiper-container');
         for (let i = 0; i < kotElements.length; i++) {
           kotElements[i].style.zIndex = (i + 1);
-          const favRef = instance.database().ref('favs/'+currentUser.first+'_'+currentUser.last);
+          let favSnap;
+          let disFavSnap;
+          const favRef = instance.database().ref(`favs/${currentUser.first}_${currentUser.last}`);
           const favRefQuery = favRef.orderByValue().equalTo(kotElements[i].id);
           favRefQuery.on('value', (snapshot) => {
-            if (snapshot.val() != null) {
-              kotElements[i].remove();
-            }
+            favSnap = snapshot.val();
           });
-          favRef.on('value', (favs) => {
-
+          const disFavRef = instance.database().ref(`disfavs/${currentUser.first}_${currentUser.last}`);
+          const disFavRefQuery = disFavRef.orderByValue().equalTo(kotElements[i].id);
+          favRefQuery.on('value', (snapshot) => {
+            disFavSnap = snapshot.val();
           });
+          if (!favSnap && !disFavSnap) {
+            console.log('Not liked OR disliked');
+            kotElements[i].remove();
+          }
+        }
+        if (document.querySelectorAll('.kot-swiper-container').length < 1) {
+          // kotList.innerHTML = ''
         }
         const likeButtons = document.querySelectorAll('.fa-thumbs-up');
         likeButtons.forEach((likeBtn) => {
@@ -226,8 +299,10 @@ function localNotification(message) {
 }
 
 function addDetailClickEvents() {
+  console.log('addde');
   const detailButtons = document.querySelectorAll('.go-to-detail');
   detailButtons.forEach((button) => {
+    console.log(button);
     button.addEventListener('click', (event) => {
       localStorage.setItem('clickedKotKey', event.target.id);
       window.location.href = '/#/detail';

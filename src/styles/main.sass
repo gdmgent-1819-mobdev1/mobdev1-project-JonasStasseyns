@@ -13,14 +13,24 @@ body
   #map
     top: 0
     bottom: 0
-    width: 500px
-    height: 200px
+    width: 100vw
+    height: 80vh
     text-align: initial
     margin: 0 auto
-    height: 2px
 
 @import 'variables.sass'
 @import 'components.sass'
+
+.marker
+  width: 0
+  height: 0
+  border-left: 3vw solid transparent
+  border-right: 3vw solid transparent
+  border-top: 6vw solid $main-red
+  border-radius: 3vw 3vw 1vw 1vw
+
+.popup
+  width: 60vw
 
 // Splash
 .splash
@@ -30,6 +40,7 @@ body
   position: fixed
   top: 0
   text-align: center
+  //display: none
 
 .splash-logo
   margin-top: 40vh
@@ -145,13 +156,11 @@ h1, h2, h3
   position: absolute
   top: 1vh
   right: 5vw
+  display: none
 
 .view-icon
   font-size: 1.4em
   padding: 0 1vw
-
-.fa-list-ul
-  color: $main-red
 
 .add-kot-submit
   display: none
@@ -261,3 +270,9 @@ hr
 
 .fa-thumbs-down
   color: #f44336
+
+.no-new-kots
+  font-size: 1.3em
+  color: $main-red
+  text-align: center
+  margin-top: 35vh

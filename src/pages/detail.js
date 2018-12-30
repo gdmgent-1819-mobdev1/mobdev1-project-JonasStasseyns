@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 // Only import the compile function from handlebars instead of the entire library
 import { compile } from 'handlebars';
-import { currentUser, localNotification } from './home';
+import { buildMenu } from './home';
 import update from '../helpers/update';
 import { getInstance } from '../firebase/firebase';
 
@@ -23,5 +23,6 @@ function readKot() {
   reference.on('value', (data) => {
     const compiledDetails = compile(detailPartial)(data.val());
     document.querySelector('.kotdetailcontainer').innerHTML = compiledDetails;
+    buildMenu();
   });
 }
