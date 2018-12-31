@@ -6,6 +6,7 @@ import MapboxView from './pages/mapbox-example';
 import AddKotView from './pages/add-kot';
 import DetailView from './pages/detail';
 import MessagesView from './pages/messages';
+import FavoritesView from './pages/favs';
 
 export default [
   { path: '/', view: HomeView },
@@ -15,4 +16,5 @@ export default [
   { path: '/addkot', view: AddKotView },
   { path: '/detail', view: DetailView },
   { path: '/messages', view: MessagesView },
+  { path: '/favs', view: FavoritesView },
 ];

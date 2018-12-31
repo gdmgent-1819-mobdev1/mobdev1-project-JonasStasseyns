@@ -17,7 +17,7 @@ const menuTemplate = require('../partials/menu.handlebars');
 
 const instance = getInstance();
 
-// window.location.href = '/#/messages';
+// window.location.href = '/#/favs';
 
 let currentUser;
 
@@ -27,7 +27,7 @@ export default () => {
 
   // wait for compilation
   checkLoggedIn();
-  buildMenu();
+  buildMenu(true);
 };
 
 function checkLoggedIn(signin) {
@@ -66,7 +66,6 @@ function checkLoggedIn(signin) {
           currentUser = child.val();
           console.log(currentUser);
           localNotification(currentUser.email);
-          firebaseRead('list');
         });
       });
       if (signin && document.querySelector('.form-signin')) {
@@ -76,7 +75,7 @@ function checkLoggedIn(signin) {
       currentUser = 'none';
       console.log('Not logged In');
     }
-    buildMenu();
+    firebaseRead('list');
   });
 }
 
@@ -156,11 +155,11 @@ function compileAuthForm(type, typeCase, alt, altCase) {
   });
 }
 
-function buildMenu() {
+function buildMenu(isHome) {
+  checkLoggedIn();
   const menu = document.querySelector('.menu');
   document.querySelector('.menu-icon').addEventListener('click', () => {
     // localNotification('eeeeeeeeeeeee: ');
-    checkLoggedIn();
     console.log(currentUser.email);
     const isOwner = (currentUser.userType === 'owner');
     const email = currentUser.email;
@@ -168,11 +167,8 @@ function buildMenu() {
     const compiledMenu = compile(menuTemplate)({
       email,
       owner: isOwner,
+      isHome,
     });
-    // const compiledMenu = compile(menuTemplate)({
-    //   email: 'stasseynsjonas@gmail.com',
-    //   owner: (currentUser.userType === 'owner'),
-    // });
     menu.innerHTML = compiledMenu;
     menu.style.display = 'block';
     document.querySelector('.close-menu').addEventListener('click', () => {
@@ -183,7 +179,7 @@ function buildMenu() {
         menu.style.display = 'none';
         compileAuthForm('signin', 'Sign in', 'signup', 'Sign up');
       });
-    } else {
+    } else if (document.querySelector('.signout')) {
       document.querySelector('.signout').addEventListener('click', () => {
         instance.auth().signOut();
         checkLoggedIn();
@@ -220,7 +216,6 @@ function firebaseRead(type) {
             style: 'mapbox://styles/mapbox/streets-v9',
             zoom: 11,
           });
-          // SAMPLECODE
           const geojson = snapshot;
           geojson.forEach((marker) => {
             const markerValue = marker.val();
@@ -249,34 +244,43 @@ function firebaseRead(type) {
       }
       addDetailClickEvents();
       if (type === 'swiper') {
+        console.log('YES TYPE IS SWIPER');
         const kotElements = document.querySelectorAll('.kot-swiper-container');
+        console.log(kotElements);
         for (let i = 0; i < kotElements.length; i++) {
           kotElements[i].style.zIndex = (i + 1);
           let favSnap;
           let disFavSnap;
           const favRef = instance.database().ref(`favs/${currentUser.first}_${currentUser.last}`);
           const favRefQuery = favRef.orderByValue().equalTo(kotElements[i].id);
-          favRefQuery.on('value', (snapshot) => {
-            favSnap = snapshot.val();
+          favRefQuery.on('value', (favSnapshot) => {
+            favSnap = favSnapshot.val() != null;
+            console.log('LIKES');
+            const disFavRef = instance.database().ref(`disfavs/${currentUser.first}_${currentUser.last}`);
+            const disFavRefQuery = disFavRef.orderByValue().equalTo(kotElements[i].id);
+            disFavRefQuery.on('value', (disFavSnapshot) => {
+              disFavSnap = disFavSnapshot.val() != null;
+              console.log('DISLIKES');
+              if (favSnap || disFavSnap) {
+                console.log('LIKED OR DISLIKED');
+                kotElements[i].remove();
+              } else {
+                console.log('favSnap && disFavSnap == false');
+              }
+            });
           });
-          const disFavRef = instance.database().ref(`disfavs/${currentUser.first}_${currentUser.last}`);
-          const disFavRefQuery = disFavRef.orderByValue().equalTo(kotElements[i].id);
-          favRefQuery.on('value', (snapshot) => {
-            disFavSnap = snapshot.val();
-          });
-          if (!favSnap && !disFavSnap) {
-            console.log('Not liked OR disliked');
-            kotElements[i].remove();
-          }
-        }
-        if (document.querySelectorAll('.kot-swiper-container').length < 1) {
-          // kotList.innerHTML = ''
         }
         const likeButtons = document.querySelectorAll('.fa-thumbs-up');
         likeButtons.forEach((likeBtn) => {
-          console.log('poef');
           likeBtn.addEventListener('click', (e) => {
             instance.database().ref(`favs/${currentUser.first}_${currentUser.last}`).push(e.currentTarget.id);
+            document.querySelector(`.kot-swiper-container#${e.target.id}`).remove();
+          });
+        });
+        const dislikeButtons = document.querySelectorAll('.fa-thumbs-down');
+        dislikeButtons.forEach((dislikeBtn) => {
+          dislikeBtn.addEventListener('click', (e) => {
+            instance.database().ref(`disfavs/${currentUser.first}_${currentUser.last}`).push(e.currentTarget.id);
             document.querySelector(`.kot-swiper-container#${e.target.id}`).remove();
           });
         });

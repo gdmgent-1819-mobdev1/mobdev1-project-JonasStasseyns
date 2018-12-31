@@ -27,7 +27,7 @@ body
   border-left: 3vw solid transparent
   border-right: 3vw solid transparent
   border-top: 6vw solid $main-red
-  border-radius: 3vw 3vw 1vw 1vw
+  border-radius: 5vw 5vw 5vw 5vw
 
 .popup
   width: 60vw
@@ -57,7 +57,13 @@ body
 .title
   color: $main-red
   text-align: center
-  
+  margin-bottom: 0
+
+.subtitle
+  font-variant: all-small-caps
+  text-align: center
+  margin-top: 0
+
 a
   color: $whitish
   text-decoration: none
@@ -109,7 +115,7 @@ label
   font-weight: 800
 
 .menu
-  background-color: #EB6A69
+  background-color: white
   width: 50vw
   height: 100vh
   position: fixed
@@ -127,8 +133,11 @@ label
 .menu li
   list-style: none
   font-size: 1.3em
-  color: $whitish
-  padding: 2% 0
+  color: $main-red
+  padding: 3% 0
+
+.menu li a
+  color: $main-red
 
 .close-menu
   width: 90%

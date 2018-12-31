@@ -27,6 +27,6 @@ router.notFound(() => {
   router.navigate('/');
 });
 router.resolve();
-window.onload = () => {
-  router.navigate(window.location.hash.split('/')[1]);
-};
+// window.onload = () => {
+//   router.navigate(window.location.hash.split('/')[1]);
+// };

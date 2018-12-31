@@ -5,17 +5,22 @@
 </div>
 <i class="fas fa-bars close-menu"></i>
 <ul>
-    <li><a href="#">Koten bekijken</a></li>
+    <li><a href="#">Home</a></li>
     {{#if email}}
-        <li><a href="/#/messages">Messages</a></li>
+        <li><a href="/#/messages">Berichten</a></li>
+        <li><a href="/#/favs">Favorieten</a></li>
     {{/if}}
     {{#if owner}}
-        <li><a href="/#/addkot">Add kot</a></li>
+        <li><a href="/#/addkot">Kot toevoegen</a></li>
     {{/if}}
     {{#unless email}}
-        <li class="show-signin">Sign in</li>
+        {{#if isHome}}
+            <li class="show-signin">Inloggen</li>
+        {{/if}}
     {{/unless}}
     {{#if email}}
-        <li class="signout">Sign Out</li>
+        {{#if isHome}}
+            <li class="signout">Uitloggen</li>
+        {{/if}}
     {{/if}}
 </ul>

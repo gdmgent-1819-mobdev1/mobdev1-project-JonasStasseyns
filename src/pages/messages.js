@@ -2,7 +2,7 @@
 // Only import the compile function from handlebars instead of the entire library
 import { compile } from 'handlebars';
 import update from '../helpers/update';
-// import { buildMenu } from './home';
+import { buildMenu } from './home';
 import { getInstance } from '../firebase/firebase';
 
 // Import the template to use
@@ -20,6 +20,7 @@ export default () => {
   // Return the compiled template to the router
   update(compile(messagesTemplate)());
   getMessages();
+  buildMenu();
 };
 
 function getMessages() {
