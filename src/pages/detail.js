@@ -24,5 +24,9 @@ function readKot() {
     const compiledDetails = compile(detailPartial)(data.val());
     document.querySelector('.kotdetailcontainer').innerHTML = compiledDetails;
     buildMenu();
+    document.querySelector('.contact').addEventListener('click', (e) => {
+      localStorage.setItem('contactWhom', e.target.id);
+      window.location.href = '/#/messages';
+    });
   });
 }

@@ -17,16 +17,18 @@
     <label>Huurprijs</label>
     <div class="rent-filter-container">
         <label class="rent-filter-label">van</label>
-        <input type="number" class="filter-rent-lo" placeholder="€0">
+        <input type="number" class="filter-rent-lo" value="100">
     </div>
     <div class="rent-filter-container right">
         <label class="rent-filter-label">tot</label>
-        <input type="number" class="filter-rent-hi" placeholder="€500">
+        <input type="number" class="filter-rent-hi" value="500">
     </div>
-    <label>Oppervlakte</label>
-    <input type="number" class="filter-surface" placeholder="64" value="{{snapshot.surface}}">
+    <label>Minimum oppervlakte</label>
+    <input type="number" class="filter-surface" value="40">
     <button class="filter-button">Filteren</button>
+    <button class="filter-clear">Filters verwijderen</button>
 </div>
 <div class="splash"><h1 class="splash-logo">kotfindr</h1><p>Loading...</p></div>
-<div class="kotlist"></div>
+<div class="kotlist">
+</div>
 {{>footer}}

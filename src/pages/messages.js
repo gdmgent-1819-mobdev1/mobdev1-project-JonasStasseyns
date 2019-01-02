@@ -1,9 +1,9 @@
 /* eslint-disable no-use-before-define */
 // Only import the compile function from handlebars instead of the entire library
-import { compile } from 'handlebars';
+import {compile} from 'handlebars';
 import update from '../helpers/update';
-import { buildMenu } from './home';
-import { getInstance } from '../firebase/firebase';
+import {buildMenu} from './home';
+import {getInstance} from '../firebase/firebase';
 
 // Import the template to use
 const messagesTemplate = require('../templates/messages.handlebars');
@@ -14,6 +14,7 @@ const composePartial = require('../partials/composemessage.handlebars');
 const firebase = getInstance();
 
 let currentUser;
+let contact;
 
 export default () => {
   // Data to be passed to the template
@@ -32,6 +33,7 @@ function getMessages() {
     });
     document.querySelector('.towhom').addEventListener('input', () => {
       const myCode = `${currentUser.first}_${currentUser.last}`;
+
       document.querySelector('.foundrecipcontainer').innerHTML = '';
       if (document.querySelector('.towhom').value !== '') {
         const recipQuery = firebase.database().ref('users').orderByChild('first');
@@ -50,7 +52,6 @@ function getMessages() {
             recipElement.addEventListener('click', (e) => {
               document.querySelector('.selected-recip').innerHTML = e.target.innerText;
               document.querySelector('.foundrecipcontainer').innerHTML = '';
-              // TODO Make sure this is where the message is sent
               document.querySelector('.send-message-new').addEventListener('click', () => {
                 firebase.database().ref(`messages/${e.target.id}`).update({
                   [myCode]: document.querySelector('.compose-textarea').value,
@@ -73,63 +74,88 @@ function getMessages() {
       query.on('value', (snap) => {
         snap.forEach((child) => {
           currentUser = child.val();
+          if (currentUser.userType === 'student') {
+            document.querySelector('.new-message').style.display = 'block';
+          }
           const nameKey = `${currentUser.first}_${currentUser.last}`;
           console.log(nameKey);
-          const qry = firebase.database().ref(`messages/${nameKey}`).orderByKey();
-          qry.on('value', (snapshot) => {
-            document.querySelector('.message-list').innerHTML = '';
-            snapshot.forEach((message) => {
-              console.log(`Raw: ${message.val()}`);
-              const compiledMessages = compile(messagePartial)({
-                fromto: message.key,
-                message: message.val(),
-              });
-              document.querySelector('.message-list').innerHTML += compiledMessages;
-              const messageElements = document.querySelectorAll('.message');
-              messageElements.forEach((messageElement) => {
-                messageElement.addEventListener('click', (e) => {
-                  const fromName = e.currentTarget.id;
-                  console.log('messageClick');
-                  if (document.querySelector('.message-list')) {
-                    document.querySelector('.message-list').innerHTML = '';
-                    const composeQuery = firebase.database().ref(`messages/${nameKey}/${fromName}`);
-                    composeQuery.on('value', (snapshot) => {
-                      console.log(`data: ${fromName}`);
-                      let cleanStr = snapshot.val();
-                      if (cleanStr.includes('You: ')) {
-                        cleanStr = cleanStr.split('You: ').pop();
-                        document.querySelector('.message-list').innerHTML = compile(composePartial)({
-                          from: snapshot.key,
-                          mess: cleanStr,
-                          fromyou: true,
-                          newmessage: false,
-                        });
-                      } else {
-                        document.querySelector('.message-list').innerHTML = compile(composePartial)({
-                          from: snapshot.key,
-                          mess: snapshot.val(),
-                          fromyou: false,
-                          newmessage: false,
-                        });
-                      }
-                      document.querySelector('.send-message').addEventListener('click', (e) => {
-                        const to = snapshot.key;
-                        const sendContent = document.querySelector('.compose-textarea').value;
-                        console.log(to);
-                        console.log(sendContent);
-                        firebase.database().ref(`messages/${to}`).update({
-                          [nameKey]: sendContent,
-                        });
-                        firebase.database().ref(`messages/${nameKey}`).update({
-                          [to]: `You: ${sendContent}`,
-                        });
-                      });
-                    });
-                  }
+          if (localStorage.getItem('contactWhom')) {
+            const contactRef = firebase.database().ref('users').orderByChild('email').equalTo(localStorage.getItem('contactWhom'));
+            contactRef.on('value', (conSnap) => {
+              conSnap.forEach((con) => {
+                contact = `${con.val().first}_${con.val().last}`;
+                document.querySelector('.message-list').innerHTML = compile(composePartial)({
+                  newmessage: true,
+                  contact,
+                });
+                document.querySelector('.send-message-new').addEventListener('click', () => {
+                  const me = `${currentUser.first}_${currentUser.last}`;
+                  firebase.database().ref(`messages/${contact}`).update({
+                    [me]: document.querySelector('.compose-textarea').value,
+                  });
+                  firebase.database().ref(`messages/${me}`).update({
+                    [contact]: 'You: ' + document.querySelector('.compose-textarea').value,
+                  });
+                  localStorage.setItem('contactWhom', '');
+                  window.location.href = '/#/detail';
                 });
               });
             });
-          });
+          } else {
+            const qry = firebase.database().ref(`messages/${nameKey}`).orderByKey();
+            qry.on('value', (snapshot) => {
+              document.querySelector('.message-list').innerHTML = '';
+              snapshot.forEach((message) => {
+                console.log(`Raw: ${message.val()}`);
+                const compiledMessages = compile(messagePartial)({
+                  fromto: message.key,
+                  message: message.val(),
+                });
+                document.querySelector('.message-list').innerHTML += compiledMessages;
+                const messageElements = document.querySelectorAll('.message');
+                messageElements.forEach((messageElement) => {
+                  messageElement.addEventListener('click', (e) => {
+                    const fromName = e.currentTarget.id;
+                    console.log('messageClick');
+                    if (document.querySelector('.message-list')) {
+                      document.querySelector('.message-list').innerHTML = '';
+                      const composeQuery = firebase.database().ref(`messages/${nameKey}/${fromName}`);
+                      composeQuery.on('value', (snapshot) => {
+                        console.log(`data: ${fromName}`);
+                        let cleanStr = snapshot.val();
+                        if (cleanStr.includes('You: ')) {
+                          cleanStr = cleanStr.split('You: ').pop();
+                          document.querySelector('.message-list').innerHTML = compile(composePartial)({
+                            from: snapshot.key,
+                            mess: cleanStr,
+                            fromyou: true,
+                            newmessage: false,
+                          });
+                        } else {
+                          document.querySelector('.message-list').innerHTML = compile(composePartial)({
+                            from: snapshot.key,
+                            mess: snapshot.val(),
+                            fromyou: false,
+                            newmessage: false,
+                          });
+                        }
+                        document.querySelector('.send-message').addEventListener('click', () => {
+                          const to = snapshot.key;
+                          const sendContent = document.querySelector('.compose-textarea').value;
+                          firebase.database().ref(`messages/${to}`).update({
+                            [nameKey]: sendContent,
+                          });
+                          firebase.database().ref(`messages/${nameKey}`).update({
+                            [to]: `You: ${sendContent}`,
+                          });
+                        });
+                      });
+                    }
+                  });
+                });
+              });
+            });
+          }
         });
       });
     } else {
@@ -137,5 +163,3 @@ function getMessages() {
     }
   });
 }
-
-// BUG when sending message to a recipient who still has an unreplied message from you, you overwrite that message

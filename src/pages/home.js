@@ -188,22 +188,43 @@ function buildMenu(isHome) {
   });
 }
 
-function firebaseRead(type) {
+function firebaseRead(type, filter) {
+  document.querySelector('.fa-filter').style.display = 'none';
   const kotList = document.querySelector('.kotlist');
   if (kotList) {
     kotList.innerHTML = '';
     const leadsRef = instance.database().ref('kots');
-    leadsRef.on('value', (snapshot) => {
+    let filterRef = leadsRef;
+    if (filter) {
+      if (filter.rentLo && filter.rentHi) {
+        console.log('FILTER');
+        filterRef = leadsRef.orderByChild('rent').startAt(filter.rentLo).endAt(filter.rentHi);
+      }
+    }
+    filterRef.on('value', (snapshot) => {
       let compiledTemplate;
       if (type === 'list') {
-        compiledTemplate = handlebars.compile(kotListTemplate)(snapshot.val());
+        if (document.querySelector('.fa-filter')) {
+          document.querySelector('.fa-filter').style.display = 'block';
+        }
+        if (filter) {
+          const filterArray = [];
+          snapshot.forEach((child) => {
+            if (child.val().type === filter.type && child.val().surface >= filter.surface) {
+              filterArray.push(child.val());
+            }
+          });
+          compiledTemplate = handlebars.compile(kotListTemplate)(filterArray);
+        } else {
+          compiledTemplate = handlebars.compile(kotListTemplate)(snapshot.val());
+        }
       } else if (type === 'swiper') {
         compiledTemplate = handlebars.compile(kotSwiperTemplate)(snapshot.val());
       } else if (type === 'map') {
         compiledTemplate = handlebars.compile(kotMapTemplate)();
       }
       kotList.innerHTML = compiledTemplate;
-      // Second if type===map because the partial must be rendered before initializing map
+      // Second if type===map because the partial must be rendered before initializing the map
       if (type === 'map') {
         if (config.mapBoxToken) {
           mapboxgl.accessToken = config.mapBoxToken;
@@ -315,6 +336,13 @@ function addDetailClickEvents() {
 }
 
 function addFilterEvents() {
+  document.querySelector('.fa-filter').addEventListener('click', (e) => {
+    document.querySelector('.filter').style.display = 'block';
+    e.currentTarget.style.display = 'none';
+  });
+  document.querySelector('.filter-clear').addEventListener('click', () => {
+    window.location.reload();
+  });
   document.querySelector('.filter-button').addEventListener('click', () => {
     const filter = {
       type: document.querySelector('.filter-kot-type').value,
@@ -322,6 +350,9 @@ function addFilterEvents() {
       rentHi: document.querySelector('.filter-rent-hi').value,
       surface: document.querySelector('.filter-surface').value,
     };
+    firebaseRead('list', filter);
+    document.querySelector('.filter').style.display = 'none';
+    document.querySelector('.fa-filter').style.display = 'block';
   });
 }
 
