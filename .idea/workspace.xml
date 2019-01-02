@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecfa339f-8131-4adb-8f1a-4bd0940f79a6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/detail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/partials/favpartial.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/partials/favpartial.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/partials/kotdetail.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/partials/kotdetail.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/partials/kotlistteplate.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/partials/kotlistteplate.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/partials/kotswipertemplate.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/partials/kotswipertemplate.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components.sass" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components.sass" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/main.sass" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/main.sass" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +72,7 @@
           <entry key="HTML" value="163" />
           <entry key="Handlebars/Mustache" value="8244" />
           <entry key="JSON" value="31" />
-          <entry key="JavaScript" value="34428" />
+          <entry key="JavaScript" value="34480" />
           <entry key="SCSS" value="104" />
           <entry key="Sass" value="7099" />
         </counts>
@@ -96,7 +86,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/styles/main.sass">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="497">
@@ -132,11 +122,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/detail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
+            <state relative-caret-position="405">
+              <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
               <folding>
                 <element signature="e#124#161#0" expanded="true" />
               </folding>
@@ -277,11 +267,11 @@
         <option value="$PROJECT_DIR$/src/partials/kotlistteplate.handlebars" />
         <option value="$PROJECT_DIR$/src/styles/components.sass" />
         <option value="$PROJECT_DIR$/src/partials/favpartial.handlebars" />
-        <option value="$PROJECT_DIR$/src/pages/detail.js" />
         <option value="$PROJECT_DIR$/src/partials/kotdetail.handlebars" />
         <option value="$PROJECT_DIR$/src/partials/kotswipertemplate.handlebars" />
         <option value="$PROJECT_DIR$/src/styles/main.sass" />
         <option value="$PROJECT_DIR$/src/pages/home.js" />
+        <option value="$PROJECT_DIR$/src/pages/detail.js" />
       </list>
     </option>
   </component>
@@ -472,12 +462,12 @@
       <workItem from="1544958858187" duration="1063000" />
       <workItem from="1545143962072" duration="7973000" />
       <workItem from="1545572313765" duration="110202000" />
-      <workItem from="1546269637025" duration="24974000" />
+      <workItem from="1546269637025" duration="25224000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="164255000" />
+    <option name="totallyTimeSpent" value="164505000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="362" y="23" width="1078" height="822" extended-state="0" />
@@ -818,16 +808,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/detail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
-          <folding>
-            <element signature="e#124#161#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/detail.handlebars">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -868,6 +848,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="497">
           <caret line="140" column="20" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/detail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+          <folding>
+            <element signature="e#124#161#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

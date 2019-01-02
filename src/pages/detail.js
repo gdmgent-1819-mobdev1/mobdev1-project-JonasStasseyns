@@ -19,12 +19,13 @@ export default () => {
 
 function readKot() {
   instance.auth().onAuthStateChanged((user) => {
+    const email = (user) ? user.email : false;
     const currentKey = localStorage.getItem('clickedKotKey');
     const reference = instance.database().ref(`kots/${currentKey}`);
     reference.on('value', (data) => {
       const compiledDetails = compile(detailPartial)({
         data: data.val(),
-        email: user.email,
+        email,
       });
       document.querySelector('.kotdetailcontainer').innerHTML = compiledDetails;
       buildMenu();
