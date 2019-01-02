@@ -18,21 +18,26 @@ export default () => {
 };
 
 function readKot() {
-  const currentKey = localStorage.getItem('clickedKotKey');
-  const reference = instance.database().ref(`kots/${currentKey}`);
-  reference.on('value', (data) => {
-    const compiledDetails = compile(detailPartial)(data.val());
-    document.querySelector('.kotdetailcontainer').innerHTML = compiledDetails;
-    buildMenu();
-    document.querySelector('.contact').addEventListener('click', (e) => {
-      localStorage.setItem('contactWhom', e.target.id);
-      window.location.href = '/#/messages';
-    });
-    const url = 'http://stasseynsjonas.be/kotfindr';
-    document.querySelector('.share').addEventListener('click', () => {
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`,
-        'facebook-share-dialog',
-        'width=800,height=600');
+  instance.auth().onAuthStateChanged((user) => {
+    const currentKey = localStorage.getItem('clickedKotKey');
+    const reference = instance.database().ref(`kots/${currentKey}`);
+    reference.on('value', (data) => {
+      const compiledDetails = compile(detailPartial)({
+        data: data.val(),
+        email: user.email,
+      });
+      document.querySelector('.kotdetailcontainer').innerHTML = compiledDetails;
+      buildMenu();
+      document.querySelector('.contact').addEventListener('click', (e) => {
+        localStorage.setItem('contactWhom', e.target.id);
+        window.location.href = '/#/messages';
+      });
+      const url = 'http://stasseynsjonas.be/kotfindr';
+      document.querySelector('.share').addEventListener('click', () => {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`,
+          'facebook-share-dialog',
+          'width=800,height=600');
+      });
     });
   });
 }

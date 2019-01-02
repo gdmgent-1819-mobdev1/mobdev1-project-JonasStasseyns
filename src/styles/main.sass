@@ -18,6 +18,7 @@ body
     text-align: initial
     margin: 0 auto
 
+
 @import 'variables.sass'
 @import 'components.sass'
 
@@ -27,7 +28,12 @@ body
   border-left: 3vw solid transparent
   border-right: 3vw solid transparent
   border-top: 6vw solid $main-red
-  border-radius: 5vw 5vw 5vw 5vw
+  border-radius: 5vw
+  @media (min-width: 1000px)
+    border-left: 1vw solid transparent
+    border-right: 1vw solid transparent
+    border-top: 2vw solid $main-red
+    border-radius: 5vw
 
 .popup
   width: 60vw
@@ -130,6 +136,9 @@ label
   -webkit-box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.2)
   -moz-box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.2)
   box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.2)
+  @media (min-width: 1000px)
+    width: 25vw
+    max-width: 350px
 
 .menu-content ul
   margin: 0
@@ -155,19 +164,31 @@ label
   width: 90vw
   margin: 2vh auto
   padding: 2vw
+  overflow: auto
 
 h1, h2, h3
   color: $main-red
 
 .kot-list-img
   width: 100%
+  @media (min-width: 1000px)
+    width: 50%
+    float: left
+
+.kot-list-container-content
+  @media (min-width: 1000px)
+    float: left
+    padding-left: 5vw
+    width: 44%
 
 // Menu // start
 .menu-icon
-  font-size: 5vw
-  margin: 3vh 0 0 5vw
-  padding: 1vw
+  font-size: 1.5em
+  margin: 2vh 0 0 5vw
+  padding: 0 1vw 1vw 0
   max-width: 7vw
+  @media (min-width: 700px)
+    font-size: 2em
 
 .view-icon-container
   position: absolute
@@ -176,8 +197,10 @@ h1, h2, h3
   display: none
 
 .view-icon
-  font-size: 1.4em
+  font-size: 1.5em
   padding: 0 1vw
+  @media (min-width: 700px)
+    font-size: 2em
 
 .add-kot-submit
   display: none
@@ -209,17 +232,19 @@ hr
 
 .message
   width: 100%
-  margin: 0 auto
-  -webkit-box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.1)
-  -moz-box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.1)
+  margin: 2vh auto
   box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.1)
+  @media (min-width: 700px)
+    box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.3)
 
 .message-content
   height: 100%
-  padding: 5% 5%
+  padding: 5%
   -webkit-box-sizing: border-box
   -moz-box-sizing: border-box
   box-sizing: border-box
+  @media (min-width: 1000px)
+    padding: 3%
 
 .message-content p
   margin: 3% 0 0 0
@@ -258,10 +283,13 @@ hr
   right: 5vw
   bottom: 5vh
   display: none
+  @media (min-width: 700px)
+    width: 5vw
+    height: 5vw
+    font-size: 3em
 
 .kot-swiper-container
   width: 90vw
-  height: 72vh
   padding: 2vw
   margin: 0 auto
   position: absolute
@@ -305,6 +333,8 @@ hr
   font-size: 1.3em
   margin: 2vh 0 0 5vw
   display: none
+  @media (min-width: 700px)
+    font-size: 1.6em
 
 .filter
   width: 90vw

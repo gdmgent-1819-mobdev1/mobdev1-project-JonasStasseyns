@@ -346,16 +346,20 @@ function addDetailClickEvents() {
 }
 
 function addFilterEvents() {
-  document.querySelector('.search-submit').addEventListener('click', () => {
-    const searchTerm = document.querySelector('.search-input').value;
-    firebaseRead('list', false, searchTerm);
-    document.querySelector('.filter').style.display = 'none';
-    document.querySelector('.fa-filter').style.display = 'block';
-  });
-  document.querySelector('.fa-filter').addEventListener('click', (e) => {
-    document.querySelector('.filter').style.display = 'block';
-    e.currentTarget.style.display = 'none';
-  });
+  if (document.querySelector('.search-submit')) {
+    document.querySelector('.search-submit').addEventListener('click', () => {
+      const searchTerm = document.querySelector('.search-input').value;
+      firebaseRead('list', false, searchTerm);
+      document.querySelector('.filter').style.display = 'none';
+      document.querySelector('.fa-filter').style.display = 'block';
+    });
+  }
+  if (document.querySelector('.fa-filter')) {
+    document.querySelector('.fa-filter').addEventListener('click', (e) => {
+      document.querySelector('.filter').style.display = 'block';
+      e.currentTarget.style.display = 'none';
+    });
+  }
   document.querySelector('.filter-clear').addEventListener('click', () => {
     window.location.reload();
   });

@@ -1,58 +1,62 @@
-<img src="https://firebasestorage.googleapis.com/v0/b/jonasstasseyns-eindopdracht.appspot.com/o/kot-images%2F{{image}}?alt=media&token=31ae837d-3696-40cb-ad79-c574e60bd790" class="kot-list-img">
-<h1 class="kot-list-title">{{title}}</h1>
-<p class="kot-list-description">{{description}}</p>
-<h2>Eigenschappen</h2>
-<table>
-    <tr>
-        <td class="property">Waarborg</td>
-        <td class="value">{{prepay}}</td>
-    </tr>
-    <tr>
-        <td class="property">Type</td>
-        <td class="value">{{type}}</td>
-    </tr>
-    <tr>
-        <td class="property">Oppervlakte</td>
-        <td class="value">{{surface}}</td>
-    </tr>
-    <tr>
-        <td class="property">Verdieping</td>
-        <td class="value">{{floor}}</td>
-    </tr>
-    <tr>
-        <td class="property">Aantal personen</td>
-        <td class="value">{{residents}}</td>
-    </tr>
-    <tr>
-        <td class="property">Toilet</td>
-        <td class="value">{{toilet}}</td>
-    </tr>
-    <tr>
-        <td class="property">Douche</td>
-        <td class="value">{{shower}}</td>
-    </tr>
-    <tr>
-        <td class="property">Bad</td>
-        <td class="value">{{bath}}</td>
-    </tr>
-    <tr>
-        <td class="property">Keuken</td>
-        <td class="value">{{kitchen}}</td>
-    </tr>
-    <tr>
-        <td class="property">Bemeubeld</td>
-        <td class="value">{{furnished}}</td>
-    </tr>
-    <tr>
-        <td class="property">Aantal koten in pand</td>
-        <td class="value">{{kotcount}}</td>
-    </tr>
-    <tr>
-        <td class="property">Kotbaas</td>
-        <td class="value">{{owner}}</td>
-    </tr>
-</table>
-<hr>
-<button class="contact" id="{{owner}}">Contacteer eigenaar</button>
-<h2 class="price">€{{rent}}</h2>
-<button class="share">Delen</button>
+<img src="https://firebasestorage.googleapis.com/v0/b/jonasstasseyns-eindopdracht.appspot.com/o/kot-images%2F{{data.image}}?alt=media&token=31ae837d-3696-40cb-ad79-c574e60bd790" class="kot-list-img">
+<div class="kot-list-container-content">
+    <h1 class="kot-list-title">{{data.title}}</h1>
+    <p class="kot-list-description">{{description}}</p>
+    <h2>Eigenschappen</h2>
+    <table>
+        <tr>
+            <td class="property">Waarborg</td>
+            <td class="value">{{data.prepay}}</td>
+        </tr>
+        <tr>
+            <td class="property">Type</td>
+            <td class="value">{{data.type}}</td>
+        </tr>
+        <tr>
+            <td class="property">Oppervlakte</td>
+            <td class="value">{{data.surface}}</td>
+        </tr>
+        <tr>
+            <td class="property">Verdieping</td>
+            <td class="value">{{data.floor}}</td>
+        </tr>
+        <tr>
+            <td class="property">Aantal personen</td>
+            <td class="value">{{data.residents}}</td>
+        </tr>
+        <tr>
+            <td class="property">Toilet</td>
+            <td class="value">{{data.toilet}}</td>
+        </tr>
+        <tr>
+            <td class="property">Douche</td>
+            <td class="value">{{data.shower}}</td>
+        </tr>
+        <tr>
+            <td class="property">Bad</td>
+            <td class="value">{{data.bath}}</td>
+        </tr>
+        <tr>
+            <td class="property">Keuken</td>
+            <td class="value">{{data.kitchen}}</td>
+        </tr>
+        <tr>
+            <td class="property">Bemeubeld</td>
+            <td class="value">{{data.furnished}}</td>
+        </tr>
+        <tr>
+            <td class="property">Aantal koten in pand</td>
+            <td class="value">{{data.kotcount}}</td>
+        </tr>
+        <tr>
+            <td class="property">Kotbaas</td>
+            <td class="value">{{data.owner}}</td>
+        </tr>
+    </table>
+    <hr>
+    {{#if email}}
+        <button class="contact" id="{{data.owner}}">Contacteer eigenaar</button>
+    {{/if}}
+    <h2 class="price">€{{data.rent}}</h2>
+    <button class="share">Delen</button>
+</div>
