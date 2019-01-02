@@ -41,6 +41,7 @@ function getFavs() {
               const favKey = favChild.val();
               firebase.database().ref(`kots/${favKey}`).on('value', (matchShot) => {
                 const data = matchShot.val();
+                console.log(data);
                 document.querySelector('.kot-list').innerHTML += handlebars.compile(favPartial)({
                   title: data.title,
                   description: data.description,
@@ -60,6 +61,18 @@ function getFavs() {
               localStorage.setItem('clickedKotKey', event.target.id);
               localStorage.setItem('manageKotKey', '');
               window.location.href = '/#/detail';
+            });
+          });
+          const removeButtons = document.querySelectorAll('.remove-fav');
+          removeButtons.forEach((rb) => {
+            rb.addEventListener('click', (e) => {
+              const remRef = firebase.database().ref(`favs/${myCode}`).orderByValue().equalTo(e.target.id);
+              remRef.on('value', (snap) => {
+                snap.forEach((toRemove) => {
+                  firebase.database().ref(`favs/${myCode}/${toRemove.key}`).remove();
+                  getFavs();
+                });
+              });
             });
           });
         }, 500);

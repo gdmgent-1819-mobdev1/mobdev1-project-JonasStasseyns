@@ -28,5 +28,11 @@ function readKot() {
       localStorage.setItem('contactWhom', e.target.id);
       window.location.href = '/#/messages';
     });
+    const url = 'http://stasseynsjonas.be/kotfindr';
+    document.querySelector('.share').addEventListener('click', () => {
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        'facebook-share-dialog',
+        'width=800,height=600');
+    });
   });
 }

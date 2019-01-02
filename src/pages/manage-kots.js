@@ -43,6 +43,7 @@ function getFavs() {
                 description: kotData.description,
                 image: kotData.image,
                 key: kot.key,
+                edit: true,
               });
             });
             setTimeout(() => {

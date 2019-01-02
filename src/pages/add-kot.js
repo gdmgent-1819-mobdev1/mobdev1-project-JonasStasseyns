@@ -117,10 +117,13 @@ function addEventListeners() {
             kotcount,
             description,
             address,
+            number,
+            street,
             lon: data.features[0].center[0],
             lat: data.features[0].center[1],
             owner: currentUser.email,
           });
+          // localStorage.setItem('manageKotKey', '');
         } else {
           instance.database().ref('kots').push({
             image,
@@ -139,6 +142,8 @@ function addEventListeners() {
             kotcount,
             description,
             address,
+            number,
+            street,
             lon: data.features[0].center[0],
             lat: data.features[0].center[1],
             owner: currentUser.email,
