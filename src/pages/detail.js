@@ -21,7 +21,6 @@ function readKot() {
   const currentKey = localStorage.getItem('clickedKotKey');
   const reference = instance.database().ref(`kots/${currentKey}`);
   reference.on('value', (data) => {
-    console.log(data.val());
     const compiledDetails = compile(detailPartial)(data.val());
     document.querySelector('.kotdetailcontainer').innerHTML = compiledDetails;
     buildMenu();

@@ -159,11 +159,9 @@ function buildMenu(isHome) {
   checkLoggedIn();
   const menu = document.querySelector('.menu');
   document.querySelector('.menu-icon').addEventListener('click', () => {
-    // localNotification('eeeeeeeeeeeee: ');
     console.log(currentUser.email);
     const isOwner = (currentUser.userType === 'owner');
     const email = currentUser.email;
-
     const compiledMenu = compile(menuTemplate)({
       email,
       owner: isOwner,
@@ -243,6 +241,7 @@ function firebaseRead(type) {
         }
       }
       addDetailClickEvents();
+      addFilterEvents();
       if (type === 'swiper') {
         console.log('YES TYPE IS SWIPER');
         const kotElements = document.querySelectorAll('.kot-swiper-container');
@@ -309,8 +308,20 @@ function addDetailClickEvents() {
     console.log(button);
     button.addEventListener('click', (event) => {
       localStorage.setItem('clickedKotKey', event.target.id);
+      localStorage.setItem('manageKotKey', '');
       window.location.href = '/#/detail';
     });
+  });
+}
+
+function addFilterEvents() {
+  document.querySelector('.filter-button').addEventListener('click', () => {
+    const filter = {
+      type: document.querySelector('.filter-kot-type').value,
+      rentLo: document.querySelector('.filter-rent-lo').value,
+      rentHi: document.querySelector('.filter-rent-hi').value,
+      surface: document.querySelector('.filter-surface').value,
+    };
   });
 }
 

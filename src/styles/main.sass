@@ -115,35 +115,41 @@ label
   font-weight: 800
 
 .menu
+  width: 100vw
+  height: 100vh
+  padding-right: 50vw
+  position: fixed
+  top: 0
+  z-index: 1000
+  display: none
+
+.menu-content
   background-color: white
   width: 50vw
   height: 100vh
-  position: fixed
-  top: 0
-  display: none
-  z-index: 1000
   -webkit-box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.2)
   -moz-box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.2)
   box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.2)
 
-.menu ul
+.menu-content ul
   margin: 0
   padding: 10%
 
-.menu li
+.menu-content li
   list-style: none
   font-size: 1.3em
   color: $main-red
   padding: 3% 0
 
-.menu li a
+.menu-content li a
   color: $main-red
 
 .close-menu
-  width: 90%
-  text-align: right
-  padding: 5%
-  font-size: 1.5em
+  width: 50vw
+  height: 100vh
+  position: fixed
+  right: 0
+  top: 0
 
 .kot-list-container
   width: 90vw
@@ -160,6 +166,8 @@ h1, h2, h3
 .menu-icon
   font-size: 5vw
   margin: 3vh 0 0 5vw
+  padding: 1vw
+  max-width: 7vw
 
 .view-icon-container
   position: absolute
@@ -285,3 +293,19 @@ hr
   color: $main-red
   text-align: center
   margin-top: 35vh
+
+// Filter
+.filter
+  width: 90vw
+  margin: 0 auto
+
+.filter label
+  display: block
+  
+.rent-filter-container
+  width: 40%
+  display: inline-block
+  
+.right
+  float: right
+  text-align: left

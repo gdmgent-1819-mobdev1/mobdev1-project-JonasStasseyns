@@ -1,62 +1,137 @@
 {{> header }}
-<form class="form add-kot add-kot-form">
-    <h2>Add kot</h2>
-    <label>Kot titel</label>
-    <input type="text" class="add-kot-title" placeholder="titel van kot">
-    <label>Huurprijs</label>
-    <input type="number" class="add-kot-rent" placeholder="€430">
-    <label>Type kot</label>
-    <select class="add-kot-type">
-        <option value="studio">Studio</option>
-        <option value="kamer">Kamer</option>
-        <option value="appartement">Appartement</option>
-        <option value="huis">Huis</option>
-    </select>
-    <label>Oppervlakte</label>
-    <input type="number" class="add-kot-surface" placeholder="64">
-    <label>Verdieping</label>
-    <input type="number" class="add-kot-floor" placeholder="0, 1, 2, 3, ...">
-    <label>Aantal Personen</label>
-    <input type="number" class="add-kot-residents" placeholder="aantal personen">
-    <label>Toilet</label>
-    <select class="add-kot-toilet">
-        <option value="prive">Privé</option>
-        <option value="gedeeld">Gedeeld</option>
-        <option class="geen">Geen</option>
-    </select>
-    <label>Douche</label>
-    <select class="add-kot-shower">
-        <option value="prive">Privé</option>
-        <option value="gedeeld">Gedeeld</option>
-        <option class="geen">Geen</option>
-    </select>
-    <label>Bad</label>
-    <select class="add-kot-bath">
-        <option value="prive">Privé</option>
-        <option value="gedeeld">Gedeeld</option>
-        <option class="geen">Geen</option>
-    </select>
-    <label>Keuken</label>
-    <select class="add-kot-kitchen">
-        <option value="prive">Privé</option>
-        <option value="gedeeld">Gedeeld</option>
-        <option class="geen">Geen</option>
-    </select>
-    <label>Bemeubeld</label>
-    <select class="add-kot-furnished">
-        <option value="ja">Ja</option>
-        <option value="neen">Neen</option>
-    </select>
-    <label>Aantal koten in pand</label>
-    <input type="number" class="add-kot-kotcount" placeholder="aantal koten in pand">
-    <label>Beschrijving</label>
-    <textarea class="add-kot-description" placeholder="kot beschrijving"></textarea>
-    <label>Kotadres</label>
-    <input type="text" class="add-kot-address" placeholder="kotadres">
-    <label>
-        Afbeelding uploaden
-        <input type="file" class="file-input" name="test">
-    </label>
-    <button class="add-kot-submit">Toevoegen</button>
-</form>
+{{#if snapshot}}
+    <form class="form add-kot add-kot-form">
+        <h2>Kot Aanpassen <button class="remove-button">Verwijder kot</button></h2>
+        <label>Kot titel</label>
+        <input type="text" class="add-kot-title" placeholder="titel van kot" value="{{snapshot.title}}">
+        <label>
+            Afbeelding uploaden
+            <input type="file" class="file-input" name="test">
+        </label>
+        <label>Huurprijs</label>
+        <input type="number" class="add-kot-rent" placeholder="€430" value="{{snapshot.rent}}">
+        <label>Waarborg</label>
+        <input type="number" class="add-kot-prepay" placeholder="€430" value="{{snapshot.prepay}}">
+        <label>Type kot</label>
+        <select class="add-kot-type">
+            <option value="{{snapshot.type}}" selected>{{snapshot.type}}</option>
+            <option value="studio">Studio</option>
+            <option value="kamer">Kamer</option>
+            <option value="appartement">Appartement</option>
+            <option value="huis">Huis</option>
+        </select>
+        <label>Oppervlakte</label>
+        <input type="number" class="add-kot-surface" placeholder="64" value="{{snapshot.surface}}">
+        <label>Verdieping</label>
+        <input type="number" class="add-kot-floor" placeholder="0, 1, 2, 3, ..." value="{{snapshot.floor}}">
+        <label>Aantal Personen</label>
+        <input type="number" class="add-kot-residents" placeholder="aantal personen" value="{{snapshot.residents}}">
+        <label>Toilet</label>
+        <select class="add-kot-toilet">
+            <option value="{{snapshot.toilet}}" selected>{{snapshot.toilet}}</option>
+            <option value="prive">Privé</option>
+            <option value="gedeeld">Gedeeld</option>
+            <option class="geen">Geen</option>
+        </select>
+        <label>Douche</label>
+        <select class="add-kot-shower">
+            <option value="{{snapshot.shower}}" selected>{{snapshot.shower}}</option>
+            <option value="prive">Privé</option>
+            <option value="gedeeld">Gedeeld</option>
+            <option class="geen">Geen</option>
+        </select>
+        <label>Bad</label>
+        <select class="add-kot-bath">
+            <option value="{{snapshot.bath}}" selected>{{snapshot.bath}}</option>
+            <option value="prive">Privé</option>
+            <option value="gedeeld">Gedeeld</option>
+            <option class="geen">Geen</option>
+        </select>
+        <label>Keuken</label>
+        <select class="add-kot-kitchen">
+            <option value="{{snapshot.kitchen}}" selected>{{snapshot.kitchen}}</option>
+            <option value="prive">Privé</option>
+            <option value="gedeeld">Gedeeld</option>
+            <option class="geen">Geen</option>
+        </select>
+        <label>Bemeubeld</label>
+        <select class="add-kot-furnished">
+            <option value="{{snapshot.furnished}}" selected>{{snapshot.furnished}}</option>
+            <option value="ja">Ja</option>
+            <option value="neen">Neen</option>
+        </select>
+        <label>Aantal koten in pand</label>
+        <input type="number" class="add-kot-kotcount" placeholder="aantal koten in pand" value="{{snapshot.kotcount}}">
+        <label>Beschrijving</label>
+        <textarea class="add-kot-description" placeholder="kot beschrijving">{{snapshot.description}}</textarea>
+        <label>Kotadres</label>
+        <input type="text" class="add-kot-street" placeholder="straat" value="{{snapshot.street}}">
+        <input type="text" class="add-kot-number" placeholder="huisnummer" value="{{snapshot.number}}">
+        <button class="add-kot-submit">Toevoegen</button>
+    </form>
+{{else}}
+    <form class="form add-kot add-kot-form">
+        <h2>Add kot</h2>
+        <label>Kot titel</label>
+        <input type="text" class="add-kot-title" placeholder="titel van kot">
+        <label>
+            Afbeelding uploaden
+            <input type="file" class="file-input" name="test">
+        </label>
+        <label>Huurprijs</label>
+        <input type="number" class="add-kot-rent" placeholder="€430">
+        <label>Waarborg</label>
+        <input type="number" class="add-kot-prepay" placeholder="€700" value="{{snapshot.prepay}}">
+        <label>Type kot</label>
+        <select class="add-kot-type">
+            <option value="studio">Studio</option>
+            <option value="kamer">Kamer</option>
+            <option value="appartement">Appartement</option>
+            <option value="huis">Huis</option>
+        </select>
+        <label>Oppervlakte</label>
+        <input type="number" class="add-kot-surface" placeholder="64">
+        <label>Verdieping</label>
+        <input type="number" class="add-kot-floor" placeholder="0, 1, 2, 3, ...">
+        <label>Aantal Personen</label>
+        <input type="number" class="add-kot-residents" placeholder="aantal personen">
+        <label>Toilet</label>
+        <select class="add-kot-toilet">
+            <option value="prive">Privé</option>
+            <option value="gedeeld">Gedeeld</option>
+            <option class="geen">Geen</option>
+        </select>
+        <label>Douche</label>
+        <select class="add-kot-shower">
+            <option value="prive">Privé</option>
+            <option value="gedeeld">Gedeeld</option>
+            <option class="geen">Geen</option>
+        </select>
+        <label>Bad</label>
+        <select class="add-kot-bath">
+            <option value="prive">Privé</option>
+            <option value="gedeeld">Gedeeld</option>
+            <option class="geen">Geen</option>
+        </select>
+        <label>Keuken</label>
+        <select class="add-kot-kitchen">
+            <option value="prive">Privé</option>
+            <option value="gedeeld">Gedeeld</option>
+            <option class="geen">Geen</option>
+        </select>
+        <label>Bemeubeld</label>
+        <select class="add-kot-furnished">
+            <option value="ja">Ja</option>
+            <option value="neen">Neen</option>
+        </select>
+        <label>Aantal koten in pand</label>
+        <input type="number" class="add-kot-kotcount" placeholder="aantal koten in pand">
+        <label>Beschrijving</label>
+        <textarea class="add-kot-description" placeholder="kot beschrijving"></textarea>
+        <label>Kotadres</label>
+        <input type="text" class="add-kot-street" placeholder="straat">
+        <input type="text" class="add-kot-number" placeholder="huisnummer">
+        <button class="add-kot-submit">Toevoegen</button>
+    </form>
+{{/if}}
 {{> footer}}

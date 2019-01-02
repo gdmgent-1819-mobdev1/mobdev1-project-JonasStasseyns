@@ -1,26 +1,29 @@
-<div class="user-frame">
-    {{#if email}}
-        <p class="user-email">{{email}}</p>
-    {{/if}}
+<div class="menu-content">
+    <div class="user-frame">
+        {{#if email}}
+            <p class="user-email">{{email}}</p>
+        {{/if}}
+    </div>
+    <ul>
+        <li><a href="#">Home</a></li>
+        {{#if email}}
+            <li><a href="/#/messages">Berichten</a></li>
+            <li><a href="/#/favs">Favorieten</a></li>
+        {{/if}}
+        {{#if owner}}
+            <li><a href="/#/addkot">Kot toevoegen</a></li>
+            <li><a href="/#/manage">Koten beheren</a></li>
+        {{/if}}
+        {{#unless email}}
+            {{#if isHome}}
+                <li class="show-signin">Inloggen</li>
+            {{/if}}
+        {{/unless}}
+        {{#if email}}
+            {{#if isHome}}
+                <li class="signout">Uitloggen</li>
+            {{/if}}
+        {{/if}}
+    </ul>
+    <div class="close-menu"></div>
 </div>
-<i class="fas fa-bars close-menu"></i>
-<ul>
-    <li><a href="#">Home</a></li>
-    {{#if email}}
-        <li><a href="/#/messages">Berichten</a></li>
-        <li><a href="/#/favs">Favorieten</a></li>
-    {{/if}}
-    {{#if owner}}
-        <li><a href="/#/addkot">Kot toevoegen</a></li>
-    {{/if}}
-    {{#unless email}}
-        {{#if isHome}}
-            <li class="show-signin">Inloggen</li>
-        {{/if}}
-    {{/unless}}
-    {{#if email}}
-        {{#if isHome}}
-            <li class="signout">Uitloggen</li>
-        {{/if}}
-    {{/if}}
-</ul>

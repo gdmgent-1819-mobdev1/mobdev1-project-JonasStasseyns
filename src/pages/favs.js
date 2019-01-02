@@ -58,6 +58,7 @@ function getFavs() {
             console.log(button);
             button.addEventListener('click', (event) => {
               localStorage.setItem('clickedKotKey', event.target.id);
+              localStorage.setItem('manageKotKey', '');
               window.location.href = '/#/detail';
             });
           });
